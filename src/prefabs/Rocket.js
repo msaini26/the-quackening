@@ -53,6 +53,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.bouncing = false;  // is BOUNCING from collidee to collidee
         this.bonked = false;    // hit underside of collidee
         this.dropping = false;  // player executed ground-pound
+
+        this.onPlatform = false;
         
         // this.mouseActivated = false;
         this.downAvailable = false;
@@ -62,10 +64,13 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // misc
         this.spawning = false;
         this.active = true;
+        this.currPlat = null;
 
     }
 
     update() {      // update method
+
+        this.checkPlat();
 
         if (this.jumping && !game.input.activePointer.isDown) { this.downAvailable = true; }
 
@@ -83,7 +88,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
         } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) { //(game.input.mousePointer.x > this.x + 5 && this.mouseActivated)
 
             this.flipX = false;
-            
+
             if (this.jumping){
                 this.x += this.airSpeed;    // floaty movement in the air
             } else {
@@ -96,7 +101,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // jump button
         if ((Phaser.Input.Keyboard.JustDown(keyF)) && this.grounded) { // keyF.isDown for constant, Phaser.Input.Keyboard.JustDown(keyF) for once
             
-            console.log("jumping...")
             this.grounded = false;
             this.jumping = true;
             this.sfxRocket.play();
@@ -105,7 +109,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         if ((Phaser.Input.Keyboard.JustDown(keyDOWN) && !this.grounded)) { // keyDOWN.isDown for constant, Phaser.Input.Keyboard.JustDown(keyDOWN) for once
             
-            console.log("going down...")
             this.dropping = true;
             this.jumping = false;
             this.bouncing = false;
@@ -148,6 +151,29 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
     }
 
+    platformReset() {
+
+        this.jumping = false;                                           // jumping has stopped
+        this.grounded = true;                                           // back on the ground
+        this.dropping = false;                                          // can't drop further down
+        this.peaked = false;
+        this.bouncing = false;
+
+        this.yAcc = this.defAcc;
+        this.yDec = this.defDec;
+        this.yVel = this.jumpPower;
+        this.yDrag = this.defDrag;
+        this.yBoost = this.defBoost;
+        this.smallJumpPower = this.smallJumpDef;
+        this.bonked = false;
+        this.timeMultiplier = this.timeMultiplierDef;
+        this.pointMultiplier = this.pointMultiplierDef;
+        this.downAvailable = false;
+
+        this.spawning = false;
+
+    }
+
     bouncingReset() {
 
         // part that enables another jump
@@ -155,16 +181,13 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         this.yVel = this.smallJumpPower;    // each bounce goes a bit higher
         if (this.smallJumpPower < 18) {     // 20 smallJumpPower is the cap
-            console.log("from rocket.js: jump power:", this.smallJumpPower);
             this.smallJumpPower += 2;
         }
         if (this.timeMultiplier < 0.50) {
             this.timeMultiplier += 0.25;
-            console.log("from rocket.js: time multiplier:", this.timeMultiplier);
         }
         if (this.pointMultiplier < 5) {
             this.pointMultiplier += 1;
-            console.log("from rocket.js: point multiplier:", this.pointMultiplier);
         }
 
         // reset deceleration on way up
@@ -182,7 +205,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
     jump() {
 
-        if (this.player02 && this.twoPlayersActivated) { console.log("should be jumping...") }
         if (this.yVel <= 0) { this.peaked = true; }     // if velocity is at its minimum, jump has hit peak
         
         if (this.peaked) {              // start going down
@@ -199,7 +221,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         }
 
-        if (this.y >= game.config.height - borderUISize*2 - borderPadding*2 - 75){   // ground hit
+        if (this.y >= game.config.height - borderUISize*2 - borderPadding*2 - 75 || this.onPlatform){   // ground hit
 
             this.groundReset();
 
@@ -236,7 +258,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         if (up) {
 
-            console.log("huh?");
             this.grounded = false;
             this.jumping = true;
             this.sfxRocket.play();
@@ -256,11 +277,12 @@ class Rocket extends Phaser.GameObjects.Sprite {
     checkCollision(collidee) {
 
         if (this.active) {
+
           // simple AABB checking
-          if (this.x < collidee.x + collidee.width &&       // check if rocket origin is to left of collidee's RIGHT bound
-              this.x + this.width > collidee.x &&     // check if collidee origin is to left of ROCKET'S RIGHT bound
+          if (this.x < collidee.x + collidee.width &&           // check if rocket origin is to left of collidee's RIGHT bound
+              this.x + this.width > collidee.x &&               // check if collidee origin is to left of ROCKET'S RIGHT bound
               this.y < collidee.y + collidee.height + 0 &&      // check if rocket origin is above collidee's LOWER bound
-              this.height + this.y + 10 > collidee. y) {   // check if collidee origin is above ROCKET'S LOWER bound
+              this.height + this.y + 10 > collidee. y) {        // check if collidee origin is above ROCKET'S LOWER bound
               
               if (this.y > collidee.y && !this.peaked){   // if hit collidee's underside
                   this.bonked = true;
@@ -268,7 +290,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
                   this.bonked = false;
               }
               
-              return true && collidee.activated;
+              return true && collidee.activated;        // returns true both if objects touching and collisions activated
   
             } else {
               return false;
@@ -280,22 +302,31 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
     collisionWrapper(collidee){
 
-        if (this.checkCollision(collidee)) {
+        if (this.checkCollision(collidee)) {        // if collision actually happened
 
-            console.log("from Rocket.js: from collisionWrapper(): collision should've happened");
-            
-            if (!this.bonked && !this.dropping) {
-                this.smallJump();
-            } else if (this.bonked) {
+            if (this.bonked) {
                 this.bonk();
             }
-  
-            console.log("a collision happend...")
   
             collidee.collision(this);
   
         }
   
+    }
+
+    checkPlat() {
+        
+        if (this.currPlat != null) {
+        
+            if (((this.x - this.width/2) < (this.currPlat.x - this.currPlat.width/2)) || ((this.x + this.width/2) < (this.currPlat.x + this.currPlat.width/2))) {
+
+                this.peaked = true;
+                this.jump()
+
+            }
+        
+        }
+ 
     }
 
 }
