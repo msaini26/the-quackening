@@ -99,7 +99,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
 
         // jump button
-        if ((Phaser.Input.Keyboard.JustDown(keyF)) && this.grounded) { // keyF.isDown for constant, Phaser.Input.Keyboard.JustDown(keyF) for once
+        if ((Phaser.Input.Keyboard.JustDown(keySPACE)) && this.grounded) { // keyF.isDown for constant, Phaser.Input.Keyboard.JustDown(keyF) for once
             
             this.grounded = false;
             this.jumping = true;
@@ -279,11 +279,10 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if (this.active) {
 
           // simple AABB checking
-          if (this.x < collidee.x + collidee.width &&           // check if rocket origin is to left of collidee's RIGHT bound
-              this.x + this.width > collidee.x &&               // check if collidee origin is to left of ROCKET'S RIGHT bound
-              this.y < collidee.y + collidee.height &&      // check if rocket origin is above collidee's LOWER bound
-              this.height + this.y > collidee. y) {        // check if collidee origin is above ROCKET'S LOWER bound
-              
+        if (this.x < collidee.x + collidee.width && 
+            this.x + this.width > collidee.x && 
+            this.y < collidee.y + collidee.height &&
+            this.height + this.y > collidee.y) {  
               if (this.y > collidee.y && !this.peaked){   // if hit collidee's underside
                   this.bonked = true;
               } else {

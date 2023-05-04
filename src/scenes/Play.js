@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('starry', './assets/background/stars_1.png'); // background stars
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
         this.load.image('ground', './assets/background/ground.png'); // clouds background image
-        this.load.image('platform', './assets/background/rectangle.png'); // platform ground image
+        this.load.image('platform', './assets/background/platform.png'); // platform ground image
         this.load.image('square', './assets/enemies/square.png'); // platform ground image
         // this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
         // this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
         this.ground = this.add.tileSprite(0, 90, 640, 480, 'ground').setOrigin(0,0); // ground background
          
         // green UI background
-        this.add.rectangle(0, borderPadding, game.config.width, borderUISize, 0xb3c3cd).setOrigin(0, 0);
+        //this.add.rectangle(0, borderPadding, game.config.width, borderUISize, 0xb3c3cd).setOrigin(0, 0);
        
      
         // add rocket (p1)
@@ -58,13 +58,13 @@ class Play extends Phaser.Scene {
         
 
         // speed enemies up
-        var speedUp = this.time.addEvent({
-            delay: 30000,                // ms
-            callback: this.speedUp,
-            //args: [],
-            callbackScope: this,
-            loop: true
-        });
+        // var speedUp = this.time.addEvent({
+        //     delay: 30000,                // ms
+        //     callback: this.speedUp,
+        //     //args: [],
+        //     callbackScope: this,
+        //     loop: true
+        // });
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F); 
@@ -114,18 +114,18 @@ class Play extends Phaser.Scene {
         }
 
         // display score
-        let highScoreConfig = {
-            fontFamily:'comic-story', // set font
-            fontSize: '28px', // set font size
-            backgroundColor: '#e7c9ff', // set score background color
-            color: '#FFFFFF', // set text color
-            align: 'center', // align score to the center
-            padding: { // set padding around text
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 275 // set max width
-        }
+        // let highScoreConfig = {
+        //     fontFamily:'comic-story', // set font
+        //     fontSize: '28px', // set font size
+        //     backgroundColor: '#e7c9ff', // set score background color
+        //     color: '#FFFFFF', // set text color
+        //     align: 'center', // align score to the center
+        //     padding: { // set padding around text
+        //         top: 5,
+        //         bottom: 5,
+        //     },
+        //     fixedWidth: 275 // set max width
+        // }
 
         // add score text
         // this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding * 2, this.p1Score, scoreConfig);
@@ -146,45 +146,45 @@ class Play extends Phaser.Scene {
         }, null, this);
 
          // display timer
-         let clockConfig = {
-            fontFamily:'chicken-pie', // set font
-            fontSize: '28px', // set font size
-            backgroundColor: '#e7c9ff', // set score background color
-            color: '#FFFFFF', // set text color
-            align: 'center', // align score to the center
-            padding: { // set padding around text
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 50 // set max width
-        };
+        //  let clockConfig = {
+        //     fontFamily:'chicken-pie', // set font
+        //     fontSize: '28px', // set font size
+        //     backgroundColor: '#e7c9ff', // set score background color
+        //     color: '#FFFFFF', // set text color
+        //     align: 'center', // align score to the center
+        //     padding: { // set padding around text
+        //         top: 5,
+        //         bottom: 5,
+        //     },
+        //     fixedWidth: 50 // set max width
+        // };
 
         // display fire ui
-        let fireConfig = {
-            fontFamily:'chicken-pie', // set font
-            fontSize: '28px', // set font size
-            backgroundColor: '#e37fff', // set score background color
-            color: '#fcf6fe', // set text color
-            align: 'center', // align score to the center
-            padding: { // set padding around text
-                top: 5,
-                bottom: 5,
-                right: 5,
-                left: 5
-            },
-            fixedWidth: 100 // set max width
-        }
+        // let fireConfig = {
+        //     fontFamily:'chicken-pie', // set font
+        //     fontSize: '28px', // set font size
+        //     backgroundColor: '#e37fff', // set score background color
+        //     color: '#fcf6fe', // set text color
+        //     align: 'center', // align score to the center
+        //     padding: { // set padding around text
+        //         top: 5,
+        //         bottom: 5,
+        //         right: 5,
+        //         left: 5
+        //     },
+        //     fixedWidth: 100 // set max width
+        // }
 
         // timer
-        this.timer = this.add.text(borderUISize + borderPadding * 48, borderUISize + borderPadding * 35, 60, clockConfig);
-        this.timer.setShadow(2, 2, '#6b74bd');
-        clockConfig.fixedWidth = 0;
+        // this.timer = this.add.text(borderUISize + borderPadding * 48, borderUISize + borderPadding * 35, 60, clockConfig);
+        // this.timer.setShadow(2, 2, '#6b74bd');
+        // clockConfig.fixedWidth = 0;
 
         //FIRE ui text
-        scoreConfig.backgroundColor = '#e7c9ff';
-        scoreConfig.color = '#fcf6fe';
-        this.fireText = this.add.text(game.config.width/2.9, borderUISize * 2.3, 'FIRE', fireConfig).setOrigin(0.5);
-        this.fireText.setVisible(false);
+        // scoreConfig.backgroundColor = '#e7c9ff';
+        // scoreConfig.color = '#fcf6fe';
+        // this.fireText = this.add.text(game.config.width/2.9, borderUISize * 2.3, 'FIRE', fireConfig).setOrigin(0.5);
+        // this.fireText.setVisible(false);
 
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
@@ -211,15 +211,15 @@ class Play extends Phaser.Scene {
     update() {
        
         //display fire ui
-        if(this.p1Rocket.isFiring){
-            this.fireText.setVisible(true);
-        } else{
-            this.fireText.setVisible(false);
-        }
+        // if(this.p1Rocket.isFiring){
+        //     this.fireText.setVisible(true);
+        // } else{
+        //     this.fireText.setVisible(false);
+        // }
 
 
-        // timer
-        this.timer.text = Math.floor(this.clock.getRemainingSeconds());
+        // // timer
+        // this.timer.text = Math.floor(this.clock.getRemainingSeconds());
 
         
         // freeze all tile sprites when game is over - cancel out movement
@@ -289,27 +289,40 @@ class Play extends Phaser.Scene {
         });
 
         // score add and repaint
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;
+        // this.p1Score += ship.points;
+        // this.scoreLeft.text = this.p1Score;
 
         // credit: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/localstorage/
         // to understand how localStorage works
 
 
         // update high score if doesn't exist already
-        if (localStorage.getItem('highscore' == null)) {
-            localStorage.setItem('highscore', this.p1Score);
-        }
+        // if (localStorage.getItem('highscore' == null)) {
+        //     localStorage.setItem('highscore', this.p1Score);
+        // }
         
         // update max score if greater than first item
-        else if (this.p1Score > localStorage.getItem('highscore')) {
-            localStorage.setItem('highscore', this.p1Score); // update score
-            this.highScore.text = "High Score: " + localStorage.getItem('highscore'); // updates high score as you beat it
-        }
+        // else if (this.p1Score > localStorage.getItem('highscore')) {
+        //     localStorage.setItem('highscore', this.p1Score); // update score
+        //     this.highScore.text = "High Score: " + localStorage.getItem('highscore'); // updates high score as you beat it
+        // }
 
         this.sound.play('sfx_explosion'); // play explosion sound effects
     }
+    // checkCollision(rocket, enemy) {
+    //     // simple AABB checking
+    //     if (rocket.x < enemy.x + enemy.width && 
+    //         rocket.x + rocket.width > enemy.x && 
+    //         rocket.y < enemy.y + enemy.height &&
+    //         rocket.height + rocket.y > enemy. y) {
+    //             return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    // enemyHit(enemy){
 
+    // }
     // speeds up ships
     // Inputs: None
     // Outputs: None, just speed up ships

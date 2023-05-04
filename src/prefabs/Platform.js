@@ -10,12 +10,9 @@ class Platform extends Phaser.GameObjects.Sprite{
 
         
         if (rocket.currPlat == null && !rocket.bonked) {
-
             console.log("from Platform.js: from collision(): colliding");
-
             rocket.platformReset();
             rocket.currPlat = this;
-        
         };
         
     }
