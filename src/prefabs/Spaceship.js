@@ -5,6 +5,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         scene.add.existing(this); // add to existing scene
         this.points = pointValue; // store pointValue
         this.moveSpeed = game.settings.spaceshipSpeed; // pixels per frame
+        this.activated = true;
     }
 
     // updates per frame
@@ -22,5 +23,13 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     // Outputs: None, reset spaceship positions
     reset() {
         this.x = game.config.width;
+    }
+
+
+    // collisoin behavior
+    explode(rocket) {
+
+        this.reset();
+    
     }
 }
