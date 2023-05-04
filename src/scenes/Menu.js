@@ -95,7 +95,7 @@ class Menu extends Phaser.Scene {
         this.add.rectangle(320, 115, 420, 100, "0xe7d3ea"); // rectangle middle
         
         // show menu text
-        var title = this.add.text(game.config.width/6, game.config.height/4 - borderUISize - borderPadding, 'Candy Clouds', titleConfig);
+        var title = this.add.text(game.config.width/2, game.config.height/3 - borderUISize - borderPadding, 'The Quackening', titleConfig).setOrigin(0.5);
         title.setShadow(4, 4, '#6b74bd');
 
         menuConfig.backgroundColor = '#00FF00';
