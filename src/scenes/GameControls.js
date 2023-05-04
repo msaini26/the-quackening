@@ -79,17 +79,17 @@ class GameControls extends Phaser.Scene {
         this.add.text(200, 180, 'Keyboard', subConfig).setOrigin(0.5); // keyboard title
 
         // or text
-        this.add.text(320, 170, "OR", subConfig).setOrigin(0, 0);
+        // this.add.text(320, 170, "OR", subConfig).setOrigin(0, 0);
   
         // mouse background cloud  
-        this.add.rectangle(400, 157, 140, 48, 0xe7d3ea).setOrigin(0, 0);
-        this.add.circle(430, 160, 18, "0xe7d3ea"); 
-        this.add.circle(460, 150, 22, "0xe7d3ea"); 
-        this.add.circle(490, 150, 12, "0xe7d3ea"); 
-        this.add.circle(517, 155, 17, "0xe7d3ea"); 
-        this.add.circle(405, 157, 24, 0xe7d3ea).setOrigin(0.5, 0); // left circle
-        this.add.circle(540, 157, 24, 0xe7d3ea).setOrigin(0.5, 0); // right circle
-        this.add.text(475, 180, 'Mouse', subConfig).setOrigin(0.5); // mouse title
+        // this.add.rectangle(400, 157, 140, 48, 0xe7d3ea).setOrigin(0, 0);
+        // this.add.circle(430, 160, 18, "0xe7d3ea"); 
+        // this.add.circle(460, 150, 22, "0xe7d3ea"); 
+        // this.add.circle(490, 150, 12, "0xe7d3ea"); 
+        // this.add.circle(517, 155, 17, "0xe7d3ea"); 
+        // this.add.circle(405, 157, 24, 0xe7d3ea).setOrigin(0.5, 0); // left circle
+        // this.add.circle(540, 157, 24, 0xe7d3ea).setOrigin(0.5, 0); // right circle
+        // this.add.text(475, 180, 'Mouse', subConfig).setOrigin(0.5); // mouse title
 
     
         // keyboard controls background
@@ -103,19 +103,19 @@ class GameControls extends Phaser.Scene {
         this.add.text(60, 315, '     & (F) to fire', paragraphConfig).setOrigin(0);
 
          // mouse controls background
-         this.add.rectangle(360, 230.5, 210, 10, 0xd9d5e7).setOrigin(0, 0);
-         this.add.rectangle(360, 399.5, 210, 10, 0xd9d5e7).setOrigin(0, 0);
-         this.add.circle(364.5, 230.5, 10, 0xd9d5e7); // top left rounder
-         this.add.circle(568, 241, 10, 0xd9d5e7); // top right rounder
-         this.add.circle(364.5, 409.55, 10, 0xd9d5e7); // bottom left rounder
-         this.add.circle(568, 399.2, 10, 0xd9d5e7); // bottom right rounder
-         this.add.text(360, 285, '◉  Use mouse to move', paragraphConfig).setOrigin(0);
-         this.add.text(360, 315, '      & (click) to fire', paragraphConfig).setOrigin(0);
+        //  this.add.rectangle(360, 230.5, 210, 10, 0xd9d5e7).setOrigin(0, 0);
+        //  this.add.rectangle(360, 399.5, 210, 10, 0xd9d5e7).setOrigin(0, 0);
+        //  this.add.circle(364.5, 230.5, 10, 0xd9d5e7); // top left rounder
+        //  this.add.circle(568, 241, 10, 0xd9d5e7); // top right rounder
+        //  this.add.circle(364.5, 409.55, 10, 0xd9d5e7); // bottom left rounder
+        //  this.add.circle(568, 399.2, 10, 0xd9d5e7); // bottom right rounder
+        //  this.add.text(360, 285, '◉  Use mouse to move', paragraphConfig).setOrigin(0);
+        //  this.add.text(360, 315, '      & (click) to fire', paragraphConfig).setOrigin(0);
  
       
         //directions to start
         menuConfig.color = '#ba5407';
-        this.add.text(105, 365, 'Press ← to start', paragraphConfig).setOrigin(0);
+        // this.add.text(105, 365, 'Press ← to start', paragraphConfig).setOrigin(0);
         this.add.text(380, 365, 'Press → to start', paragraphConfig).setOrigin(0);
 
 
@@ -139,17 +139,17 @@ class GameControls extends Phaser.Scene {
 
     // updates per frame
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             // play game with arrow keys
             mouseMove = false;
             this.sound.play('sfx_select');
             this.scene.start('playScene');
         }
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            // play game with mouse
-            mouseMove = true;
-            this.sound.play('sfx_select');
-            this.scene.start('playScene');
-        }
+        // if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        //     // play game with mouse
+        //     mouseMove = true;
+        //     this.sound.play('sfx_select');
+        //     this.scene.start('playScene');
+        // }
     }
 }
