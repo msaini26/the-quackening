@@ -7,9 +7,9 @@ class Menu extends Phaser.Scene {
     // preload assets
     preload() {
         // load audio
-        this.load.audio('sfx_select', './assets/blip_select12.wav');
-        this.load.audio('sfx_explosion', './assets/explosion38.wav');
-        this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        this.load.audio('sfx_select', './assets/audio/blip_select12.wav');
+        this.load.audio('sfx_explosion', './assets/audio/explosion38.wav');
+        this.load.audio('sfx_rocket', './assets/audio/rocket_shot.wav');
 
         // title screen background
         this.load.image('background', './assets/background/title_sky.png'); // sky background image
@@ -57,10 +57,8 @@ class Menu extends Phaser.Scene {
 
         // title font configurations
         let titleConfig = {
-            fontFamily: 'Concert One',
-
-            //            fontFamily: 'candy-shop', // set font
-            fontSize: '68px',
+            fontFamily: 'ducko',
+            fontSize: '60px',
             align: 'center',
             padding: {
                 top: 5,
