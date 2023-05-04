@@ -72,6 +72,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // left/right movement
         if (keyLEFT.isDown && this.x >= borderUISize + this.width) {
 
+            this.flipX = true;
+
             if (this.jumping){
                 this.x -= this.airSpeed;    // floaty movement in the air
             } else {
@@ -80,6 +82,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) { //(game.input.mousePointer.x > this.x + 5 && this.mouseActivated)
 
+            this.flipX = false;
+            
             if (this.jumping){
                 this.x += this.airSpeed;    // floaty movement in the air
             } else {
@@ -288,7 +292,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
   
             console.log("a collision happend...")
   
-            collidee.explode(this);
+            collidee.collision(this);
   
         }
   
