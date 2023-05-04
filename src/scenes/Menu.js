@@ -40,11 +40,13 @@ class Menu extends Phaser.Scene {
 
         // set menu configurations
         let menuConfig = {
-            fontFamily:'Helvetica', // set font
-            fontStyle: 'bold', // bold font
+            fontFamily: 'Concert One',
+
+            // fontFamily:'Helvetica', // set font
+            // fontStyle: 'bold', // bold font
             fontSize: '28px', // set font size
             backgroundColor: '#F3B141', // set score background color
-            color: '#843605', // set text color
+            color: '#FFFF49', // set text color
             align: 'center', // align score to the center
             padding: { // set padding around text
                 top: 5,
@@ -55,7 +57,9 @@ class Menu extends Phaser.Scene {
 
         // title font configurations
         let titleConfig = {
-            fontFamily: 'candy-shop', // set font
+            fontFamily: 'Concert One',
+
+            //            fontFamily: 'candy-shop', // set font
             fontSize: '68px',
             align: 'center',
             padding: {
@@ -68,39 +72,41 @@ class Menu extends Phaser.Scene {
 
         // subtitle font configuration
         let subConfig = {
-            fontFamily: 'comic-story',
+            fontFamily: 'Concert One',
+
+            //            fontFamily: 'comic-story',
             fontSize: '28px',
             align: 'center',
         };
 
         // cloud background
         // top row clouds
-        this.add.circle(145, 95, 50, "0xe7d3ea"); // top left circle
-        this.add.circle(220, 60, 50, "0xe7d3ea"); 
-        this.add.circle(380, 65, 40, "0xe7d3ea");
-        this.add.circle(300, 85, 50, "0xe7d3ea");
-        this.add.circle(460, 85, 50, "0xe7d3ea");
+        this.add.circle(145, 95, 50, "0xd8f2f8"); // top left circle
+        this.add.circle(220, 60, 50, "0xd8f2f8"); 
+        this.add.circle(380, 65, 40, "0xd8f2f8");
+        this.add.circle(300, 85, 50, "0xd8f2f8");
+        this.add.circle(460, 85, 50, "0xd8f2f8");
 
         // bottom row clouds
-        this.add.circle(145, 145, 50, "0xe7d3ea"); // bottom left circle
-        this.add.circle(225, 135, 50, "0xe7d3ea"); 
-        this.add.circle(285, 155, 50, "0xe7d3ea"); 
-        this.add.circle(365, 140, 50, "0xe7d3ea"); 
-        this.add.circle(505, 155, 35, "0xe7d3ea"); 
-        this.add.circle(435, 145, 60, "0xe7d3ea"); 
+        this.add.circle(145, 145, 50, "0xd8f2f8"); // bottom left circle
+        this.add.circle(225, 135, 50, "0xd8f2f8"); 
+        this.add.circle(285, 155, 50, "0xd8f2f8"); 
+        this.add.circle(365, 140, 50, "0xd8f2f8"); 
+        this.add.circle(535, 155, 35, "0xd8f2f8"); 
+        this.add.circle(455, 145, 60, "0xd8f2f8"); 
 
 
-        this.add.circle(110, 120, 50, "0xe7d3ea"); // left circle
-        this.add.circle(530, 105, 50, "0xe7d3ea"); // right circle
-        this.add.rectangle(320, 115, 420, 100, "0xe7d3ea"); // rectangle middle
+        this.add.circle(110, 120, 50, "0xd8f2f8"); // left circle
+        this.add.circle(530, 105, 50, "0xd8f2f8"); // right circle
+        this.add.rectangle(320, 115, 420, 100, "0xd8f2f8"); // rectangle middle
         
         // show menu text
         var title = this.add.text(game.config.width/2, game.config.height/3 - borderUISize - borderPadding, 'The Quackening', titleConfig).setOrigin(0.5);
-        title.setShadow(4, 4, '#6b74bd');
+        title.setShadow(4, 4, '#54afd5');
 
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/1.5 + borderUISize + borderPadding, 'Press ← for Novice or → for Expert', subConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/1.5 + borderUISize + borderPadding, 'Press → to start', subConfig).setOrigin(0.5);
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -110,15 +116,15 @@ class Menu extends Phaser.Scene {
 
     // updates per frame
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            // easy mode
-            game.settings = {
-                spaceshipSpeed: 3,
-                gameTimer: 61000
-            }
-            this.sound.play('sfx_select'); // play background music
-            this.scene.start('controlsScene');
-        }
+        // if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        //     // easy mode
+        //     game.settings = {
+        //         spaceshipSpeed: 3,
+        //         gameTimer: 61000
+        //     }
+        //     this.sound.play('sfx_select'); // play background music
+        //     this.scene.start('controlsScene');
+        // }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             // hard mode
             game.settings = {
@@ -126,7 +132,7 @@ class Menu extends Phaser.Scene {
                 gameTimer: 46000
             }
             this.sound.play('sfx_select');
-            this.scene.start('controlsScene');
+            this.scene.start('playScene');
         }
     }
 }
