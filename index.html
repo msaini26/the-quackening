@@ -9,16 +9,18 @@
   <link rel="preload" as="font" href="assets/fonts/candy-shop.ttf" type="font/ttf" crossorigin="anonymous"/>
   <link rel="preload" as="font" href="assets/fonts/chicken-pie.ttf" type="font/ttf" crossorigin="anonymous"/>
   <link rel="preload" as="font" href="assets/fonts/comic-story.ttf" type="font/ttf" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
 
   <style>
     body {
       background-color: lavender;
     }
+
     /* import candy shop font */
-    @font-face {
+    /* @font-face {
       font-family: candy-shop;
       src: url('./assets/fonts/candy-shop.ttf');
-    }
+    } */
 
     /* import chicken pie font */
     @font-face {
@@ -34,6 +36,13 @@
   </style>
 </head>
 <body>
+  <script>
+    WebFont.load({
+        google: {
+            families: ['Concert One:400']
+        }
+    });
+</script>
   <!-- Import JS files -->
   <script src="./lib/phaser.js"></script>
   <script src="./src/prefabs/Rocket.js"></script>
