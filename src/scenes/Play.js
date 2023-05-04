@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('starry', './assets/background/stars_1.png'); // background stars
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
         this.load.image('ground', './assets/background/ground.png'); // clouds background image
-        this.load.image('platform', './assets/background/platform.png'); // platform ground image
+        this.load.image('platform', './assets/background/rectangle.png'); // platform ground image
         this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
         this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
         this.load.image('beans', './assets/enemies/beans.png'); // jelly beans candy enemy
@@ -52,6 +52,8 @@ class Play extends Phaser.Scene {
         this.beans = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'beans', 0, 10).setOrigin(0, 0);
 
         this.plat1 = new Platform(this, 200, 200, 'platform');
+        
+        
 
         // speed enemies up
         var speedUp = this.time.addEvent({
@@ -189,26 +191,18 @@ class Play extends Phaser.Scene {
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);    
         
 
-        var emitter = this.add.particles(this.p1Rocket.x + 20, this.p1Rocket.y + 30, 'quack', {
-            lifespan: 4000,
-            speed: { min: 150, max: 250 },
-            // scale: { start: 0.8, end: 0 },
-            gravityY: 150,
-            gravityX: 50,
-            emitting: false
+        // var emitter = this.add.particles(this.p1Rocket.x + 20, this.p1Rocket.y + 30, 'quack', {
+        //     lifespan: 4000,
+        //     speed: { min: 150, max: 250 },
+        //     // scale: { start: 0.8, end: 0 },
+        //     gravityY: 150,
+        //     gravityX: 50,
+        //     emitting: false
             
-            // lifespan: 4000,
-            // speed: { min: 150, max: 250 },
-            // scale: { start: 0.8, end: 0 },
-            // gravityX: 50,
-            // gravityY: 150
-            // x: { min: 0, max: 700 },
-            // y: { start: 0, end: 500, ease: 'bounce.out' }
-            // blendMode: 'ADD'
-            // emitting: false
-        });
+            
+        // });
 
-        emitter.explode(20);
+        // emitter.explode(20);
     }
 
     // constant updates in game canvas
