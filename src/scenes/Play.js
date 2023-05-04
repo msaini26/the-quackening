@@ -1,3 +1,9 @@
+//// NOTES ///////////
+
+// put in temp sprite for plat without wonkey hitbox
+
+//////////////////////
+
 // initialize play class and inherit properties of phaser
 class Play extends Phaser.Scene {
     constructor() {
@@ -16,7 +22,7 @@ class Play extends Phaser.Scene {
         this.load.image('starry', './assets/background/stars_1.png'); // background stars
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
         this.load.image('ground', './assets/background/ground.png'); // clouds background image
-        this.load.image('platform', './assets/background/rectangle.png'); // platform ground image
+        this.load.image('platform', './assets/background/buton.png'); // platform ground image
         this.load.image('square', './assets/enemies/square.png'); // platform ground image
         // this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
         // this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
