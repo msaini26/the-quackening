@@ -7,20 +7,18 @@ class Play extends Phaser.Scene {
     // preload assets
     preload() {
         // load images/tile sprites
-        this.load.image('rocket', './assets/jar.png'); // player rocket image
+        this.load.image('rocket', './assets/player.png'); // player duck image
         this.load.image('spaceship', './assets/spaceship.png'); // spaceship enemy image
 
         // background layer assets credit to craftpix.net
         // from their website, "You can download it absolutely for free and use it in your games for commercial purposes."
         this.load.image('starfield', './assets/background/sky.png'); // sky background image
         this.load.image('starry', './assets/background/stars_1.png'); // background stars
-        this.load.image('fog', './assets/background/fog.png'); // fog background image
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
-        this.load.image('ground', './assets/background/ground.png'); // clouds background image
+        this.load.image('ground', './assets/background/ground_smaller.png'); // clouds background image
         this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
         this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
         this.load.image('beans', './assets/enemies/beans.png'); // jelly beans candy enemy
-        this.load.image('egg', './assets/enemies/egg.png'); // egg (subtracts time)
 
         // load background music
         this.load.audio('background_music', './assets/background_music.mp3');
@@ -34,7 +32,6 @@ class Play extends Phaser.Scene {
         
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0); // place background tile sprite
         this.starry = this.add.tileSprite(0, 0, 640, 480, 'starry').setOrigin(0, 0); // stars background
-        this.fog = this.add.tileSprite(0, 0, 640, 480, 'fog').setOrigin(0,0); // fog background
         this.clouds = this.add.tileSprite(0, -80, 640, 480, 'clouds').setOrigin(0,0); // clouds background
         this.ground = this.add.tileSprite(0, 90, 640, 480, 'ground').setOrigin(0,0); // ground background
          
@@ -44,14 +41,13 @@ class Play extends Phaser.Scene {
        
      
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width / 2, game.config.height - borderUISize - borderPadding*5, 'rocket').setOrigin(0.5, 0); // place rocket in game canvas frame
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize*2 - borderPadding*2 - 75, 'rocket').setOrigin(0.5, 0); // place rocket in game canvas frame
 
         // add spaceships (x3)
         this.gummy = new Spaceship(this, game.config.width + borderUISize * 6, borderUISize * 3.5, 'candy', 0, 30).setOrigin(0, 0);
         this.gummy.moveSpeed += 3;
         this.twisted_candy = new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'twisted_candy', 0, 20).setOrigin(0, 0);
         this.beans = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'beans', 0, 10).setOrigin(0, 0);
-        this.egg = new Egg(this, borderUISize * 7, borderUISize * 4 + borderPadding * 2, 'egg', 0, 10).setOrigin(0, 0); 
 
         // speed enemies up
         var speedUp = this.time.addEvent({
@@ -67,9 +63,10 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         // define mouse
-        mouse = this.input.mousePointer;
+        // mouse = this.input.mousePointer;
 
         // background music configurations
         let musicConfig = {
@@ -208,7 +205,6 @@ class Play extends Phaser.Scene {
         if (this.gameOver) {
             this.starfield.tilePositionX += 1.5; 
             this.clouds.tilePositionX += 1; 
-            this.fog.tilePositionX += 0.25; 
             this.ground.tilePositionX += 0.5;
         }
 
@@ -225,7 +221,6 @@ class Play extends Phaser.Scene {
         // update tile sprite horizontal scrolling
         this.starfield.tilePositionX -= 1.5; // create moving starfield background
         this.clouds.tilePositionX -= 1; // right - moving clouds
-        this.fog.tilePositionX -= 0.25; // right - slower moving fog
         this.ground.tilePositionX -= 0.5; // right - moving ground
 
         
@@ -237,66 +232,28 @@ class Play extends Phaser.Scene {
             this.gummy.update();
             this.twisted_candy.update();
             this.beans.update(); // update 
-            this.egg.update(); // update enemy egg
+
+            // checks collisions
+            this.p1Rocket.collisionWrapper(this.twisted_candy);
+            this.p1Rocket.collisionWrapper(this.beans);
+            this.p1Rocket.collisionWrapper(this.gummy);
+
         }   
-
-        // checks collisions
-        if (this.checkCollision(this.p1Rocket, this.egg)) {
-            this.p1Rocket.reset(); // reset rocket to "ground"
-            this.shipExplode(this.egg); // reset egg position
-
-        }
-        if (this.checkCollision(this.p1Rocket, this.twisted_candy)) {
-            this.p1Rocket.reset(); // reset rocket to "ground"
-            this.shipExplode(this.twisted_candy); // reset twisted_candy position
-        }
-        if (this.checkCollision(this.p1Rocket, this.gummy)) {
-            this.p1Rocket.reset(); // reset rocket to "ground"
-            this.shipExplode(this.gummy); // reset gummy position
-        }
-        if (this.checkCollision(this.p1Rocket, this.beans)) {
-            this.p1Rocket.reset(); // reset rocket to "ground"
-            this.shipExplode(this.beans); // reset beans position
-        }
         
-    }
-
-    // checks for object collisions
-    // Inputs: rocket, ship
-    // Output: boolean - based on if collided or not
-    checkCollision(rocket, ship) {
-        // simple AABB checking
-        if (rocket.x < ship.x + ship.width && rocket.x + rocket.width > ship.x && rocket.y < ship.y + ship.height && rocket.height + rocket.y > ship.y) {
-            return true; // if rocket collides with ship
-        } else {
-            return false; // no collision
-        }
     }
 
     // adds time to game clock if player hits a ship
     // Inputs: miliseconds
     // Output: nothing, just setting time
-    addTime(miliseconds)  {
-        this.clock.delay += miliseconds;
-    }
+    // addTime(miliseconds)  {
+    //     this.clock.delay += miliseconds;
+    // }
 
-    // remove time from game clock if player hits the egg
-    // Inputs: miliseconds
-    // Output: nothing, just setting time
-    removeTime(miliseconds)  {
-        this.clock.delay -= miliseconds;
-    }
 
     // use explode automation when ship collides
     // Inputs: ship
     // Output: None, just display explosion animation
     shipExplode(ship) {
-        if (ship != this.egg) {
-            this.addTime(5000); // add extra time if player hits a ship
-        }
-        else if (ship == this.egg) {
-            this.removeTime(5000); // remove time if player hits the egg
-        }
 
         // temporarily hide ship
         ship.alpha = 0;
@@ -338,9 +295,7 @@ class Play extends Phaser.Scene {
 
         console.log("ships speeding up!");
         this.gummy.moveSpeed *= 1.5;
-        this.twisted_candy.moveSpeed *= 1.5;
-        this.egg.moveSpeed *= 1.5;
-    
+        this.twisted_candy.moveSpeed *= 1.5;    
     }
 
 }
