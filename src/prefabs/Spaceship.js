@@ -26,8 +26,8 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     }
 
 
-    // collisoin behavior
-    explode(rocket) {
+    // collision behavior
+    collision(rocket) {
 
         this.reset();
     
