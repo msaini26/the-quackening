@@ -17,9 +17,10 @@ class Play extends Phaser.Scene {
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
         this.load.image('ground', './assets/background/ground.png'); // clouds background image
         this.load.image('platform', './assets/background/rectangle.png'); // platform ground image
-        this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
-        this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
-        this.load.image('beans', './assets/enemies/beans.png'); // jelly beans candy enemy
+        this.load.image('square', './assets/enemies/square.png'); // platform ground image
+        // this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
+        // this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
+        // this.load.image('beans', './assets/enemies/beans.png'); // jelly beans candy enemy
         this.load.image('quack', './assets/player/quack.png'); 
         
 
@@ -45,14 +46,15 @@ class Play extends Phaser.Scene {
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize*2 - borderPadding*2 - 75, 'rocket').setOrigin(0.5, 0); // place rocket in game canvas frame
 
-        // add spaceships (x3)
-        this.gummy = new Spaceship(this, game.config.width + borderUISize * 6, borderUISize * 3.5, 'candy', 0, 30).setOrigin(0, 0);
-        this.gummy.moveSpeed += 3;
-        this.twisted_candy = new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'twisted_candy', 0, 20).setOrigin(0, 0);
-        this.beans = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'beans', 0, 10).setOrigin(0, 0);
+        // // add spaceships (x3)
+        // this.gummy = new Spaceship(this, game.config.width + borderUISize * 6, borderUISize * 3.5, 'candy', 0, 30).setOrigin(0, 0);
+        // this.gummy.moveSpeed += 3;
+        // this.twisted_candy = new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'twisted_candy', 0, 20).setOrigin(0, 0);
+        // this.beans = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'beans', 0, 10).setOrigin(0, 0);
 
         this.plat1 = new Platform(this, 200, 200, 'platform');
-        
+        this.enemy = new Enemy(this, game.config.width - borderPadding - borderUISize - 30, game.config.height - borderUISize*2 - borderPadding*2 - 35, 'square');
+
         
 
         // speed enemies up
@@ -247,15 +249,15 @@ class Play extends Phaser.Scene {
             // update rocket class
             this.p1Rocket.update(); // update rocket sprite
 
-            // update spaceships (x3)
-            this.gummy.update();
-            this.twisted_candy.update();
-            this.beans.update(); // update 
+            // // update spaceships (x3)
+            // this.gummy.update();
+            // this.twisted_candy.update();
+            // this.beans.update(); // update 
 
-            // checks collisions
-            this.p1Rocket.collisionWrapper(this.twisted_candy);
-            this.p1Rocket.collisionWrapper(this.beans);
-            this.p1Rocket.collisionWrapper(this.gummy);
+            // // checks collisions
+            // this.p1Rocket.collisionWrapper(this.twisted_candy);
+            // this.p1Rocket.collisionWrapper(this.beans);
+            // this.p1Rocket.collisionWrapper(this.gummy);
             this.p1Rocket.collisionWrapper(this.plat1);
 
         }   
@@ -314,8 +316,8 @@ class Play extends Phaser.Scene {
     speedUp(){
 
         console.log("ships speeding up!");
-        this.gummy.moveSpeed *= 1.5;
-        this.twisted_candy.moveSpeed *= 1.5;    
+        // this.gummy.moveSpeed *= 1.5;
+        // this.twisted_candy.moveSpeed *= 1.5;    
     }
 
 }
