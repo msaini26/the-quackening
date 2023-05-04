@@ -29,7 +29,13 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     // collision behavior
     collision(rocket) {
 
-        this.reset();
+        if (!rocket.bonked && !rocket.dropping) {   // if hit top of object, bounce
+            rocket.smallJump();
+        }
+
+        this.alpha = 0;
+        this.activated = false;
+        this.reset();       // object just resets
     
     }
 }
