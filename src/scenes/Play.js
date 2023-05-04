@@ -7,7 +7,7 @@ class Play extends Phaser.Scene {
     // preload assets
     preload() {
         // load images/tile sprites
-        this.load.image('rocket', './assets/player.png'); // player duck image
+        this.load.image('rocket', './assets/player/player.png'); // player duck image
         this.load.image('spaceship', './assets/spaceship.png'); // spaceship enemy image
 
         // background layer assets credit to craftpix.net
@@ -15,16 +15,19 @@ class Play extends Phaser.Scene {
         this.load.image('starfield', './assets/background/sky.png'); // sky background image
         this.load.image('starry', './assets/background/stars_1.png'); // background stars
         this.load.image('clouds', './assets/background/cloud_smaller.png'); // clouds background image
-        this.load.image('ground', './assets/background/ground_smaller.png'); // clouds background image
+        this.load.image('ground', './assets/background/ground.png'); // clouds background image
+        this.load.image('platform', './assets/background/platform.jpg'); // platform ground image
         this.load.image('candy', './assets/enemies/gummy-bear.png'); // speedy candy enemy
         this.load.image('twisted_candy', './assets/enemies/twisted_candy.png'); // twisted candy enemy
         this.load.image('beans', './assets/enemies/beans.png'); // jelly beans candy enemy
+        this.load.image('quack', './assets/player/quack.png'); 
+        
 
         // load background music
-        this.load.audio('background_music', './assets/background_music.mp3');
+        this.load.audio('background_music', './assets/audio/background_music.mp3');
 
         // load spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/spritesheets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
 
     // create objects and instances in phaser canvas
@@ -35,7 +38,6 @@ class Play extends Phaser.Scene {
         this.clouds = this.add.tileSprite(0, -80, 640, 480, 'clouds').setOrigin(0,0); // clouds background
         this.ground = this.add.tileSprite(0, 90, 640, 480, 'ground').setOrigin(0,0); // ground background
          
-
         // green UI background
         this.add.rectangle(0, borderPadding, game.config.width, borderUISize, 0xb3c3cd).setOrigin(0, 0);
        
@@ -48,6 +50,8 @@ class Play extends Phaser.Scene {
         this.gummy.moveSpeed += 3;
         this.twisted_candy = new Spaceship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'twisted_candy', 0, 20).setOrigin(0, 0);
         this.beans = new Spaceship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'beans', 0, 10).setOrigin(0, 0);
+
+        this.plat1 = new Platform(this, 100, 100, 'platform');
 
         // speed enemies up
         var speedUp = this.time.addEvent({
@@ -120,15 +124,15 @@ class Play extends Phaser.Scene {
         }
 
         // add score text
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding * 2, this.p1Score, scoreConfig);
-        this.scoreLeft.setShadow(2, 2, '#6b74bd');
+        // this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding * 2, this.p1Score, scoreConfig);
+        // this.scoreLeft.setShadow(2, 2, '#6b74bd');
         // add high score text
-        this.highScore = this.add.text(280 + borderUISize + borderPadding, borderUISize + borderPadding * 2, "High Score: " + localStorage.getItem('highscore'), highScoreConfig);
+        // this.highScore = this.add.text(280 + borderUISize + borderPadding, borderUISize + borderPadding * 2, "High Score: " + localStorage.getItem('highscore'), highScoreConfig);
         // GAME OVER flag
         this.gameOver = false;
 
         // 60-second play clock
-        scoreConfig.fixedWidth = 0;
+        // scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             // display game over text in middle of screen
             this.add.text(game.config.width/2, game.config.height/2, 'Game Over', scoreConfig).setOrigin(0.5);
@@ -184,6 +188,24 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);    
         
+
+        var emitter = this.add.particles(this.p1Rocket.x + 20, this.p1Rocket.y + 30, 'quack', {
+            speed: 100,
+            lifespan: 3000,
+            gravityY: 200
+            
+            // lifespan: 4000,
+            // speed: { min: 150, max: 250 },
+            // scale: { start: 0.8, end: 0 },
+            // gravityX: 50,
+            // gravityY: 150
+            // x: { min: 0, max: 700 },
+            // y: { start: 0, end: 500, ease: 'bounce.out' }
+            // blendMode: 'ADD'
+            // emitting: false
+        });
+
+        emitter.explode(30);
     }
 
     // constant updates in game canvas
@@ -237,6 +259,7 @@ class Play extends Phaser.Scene {
             this.p1Rocket.collisionWrapper(this.twisted_candy);
             this.p1Rocket.collisionWrapper(this.beans);
             this.p1Rocket.collisionWrapper(this.gummy);
+            this.p1Rocket.collisionWrapper(this.plat1);
 
         }   
         
