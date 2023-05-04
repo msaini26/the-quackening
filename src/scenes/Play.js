@@ -24,7 +24,7 @@ class Play extends Phaser.Scene {
         
 
         // load background music
-        this.load.audio('background_music', './assets/audio/background_music.mp3');
+        this.load.audio('background_music', './assets/audio/background.mp3');
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/spritesheets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -190,9 +190,10 @@ class Play extends Phaser.Scene {
         
 
         var emitter = this.add.particles(this.p1Rocket.x + 20, this.p1Rocket.y + 30, 'quack', {
-            speed: 100,
+            speed: { min: 100, max: 200 },
             lifespan: 3000,
-            gravityY: 200
+            gravityY: 200,
+            gravityX: 50
             
             // lifespan: 4000,
             // speed: { min: 150, max: 250 },
@@ -205,7 +206,7 @@ class Play extends Phaser.Scene {
             // emitting: false
         });
 
-        emitter.explode(30);
+        emitter.explode(20);
     }
 
     // constant updates in game canvas
