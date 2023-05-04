@@ -8,17 +8,15 @@ class Platform extends Phaser.GameObjects.Sprite{
 
     collision(rocket) {     // standard collision behavior - leave empty if stays static
 
-        console.log("from Platform.js: from collision(): colliding");
         
-        if (((rocket.x - rocket.width/2) < (this.x - this.width/2)) || ((rocket.x + rocket.width/2) < (this.x + this.width/2))) {
+        if (rocket.currPlat == null && !rocket.bonked) {
 
-            rocket.peaked = true;
-            rocket.jump()
+            console.log("from Platform.js: from collision(): colliding");
 
-        } else {
             rocket.platformReset();
             rocket.currPlat = this;
-        }
+        
+        };
         
     }
 }

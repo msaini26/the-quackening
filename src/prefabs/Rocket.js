@@ -281,8 +281,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
           // simple AABB checking
           if (this.x < collidee.x + collidee.width &&           // check if rocket origin is to left of collidee's RIGHT bound
               this.x + this.width > collidee.x &&               // check if collidee origin is to left of ROCKET'S RIGHT bound
-              this.y < collidee.y + collidee.height + 0 &&      // check if rocket origin is above collidee's LOWER bound
-              this.height + this.y + 10 > collidee. y) {        // check if collidee origin is above ROCKET'S LOWER bound
+              this.y < collidee.y + collidee.height &&      // check if rocket origin is above collidee's LOWER bound
+              this.height + this.y > collidee. y) {        // check if collidee origin is above ROCKET'S LOWER bound
               
               if (this.y > collidee.y && !this.peaked){   // if hit collidee's underside
                   this.bonked = true;
@@ -318,10 +318,13 @@ class Rocket extends Phaser.GameObjects.Sprite {
         
         if (this.currPlat != null) {
         
-            if (((this.x - this.width/2) < (this.currPlat.x - this.currPlat.width/2)) || ((this.x + this.width/2) < (this.currPlat.x + this.currPlat.width/2))) {
+            if (!this.checkCollision(this.currPlat)) {
 
+                this.grounded = false;
+                this.jumping = true;
                 this.peaked = true;
-                this.jump()
+                this.currPlat = null;
+                console.log("leaving platform...")
 
             }
         
