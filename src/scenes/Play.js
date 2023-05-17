@@ -1,3 +1,16 @@
+// Notes and Questions /////////
+//
+// Changes from fern:
+//  - player behavior and physics in Player.js
+//  - player construction in Play.js
+//
+// Questions:
+//  - why only bottom collision?
+//  - what is our aim for overall GREATER feel of level design?
+//      - this ties directly into feel of player
+//
+////////////////////////////////
+
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
@@ -30,9 +43,10 @@ class Play extends Phaser.Scene {
             this.ground.add(groundTile);
         }
 
-
-        this.player = this.physics.add.sprite(75, game.config.height/2 - 30, "yellow", "yellow1").setScale(0.5);
+        // setting up player
+        this.player = new Player(this, 75, game.config.height/2 - 30, "yellow", "yellow1").setScale(0.5);   // new player class
         //setting it so only the bottom of player checks for collision
+        // // why only bottom?
         this.player.body.checkCollision.up = false; 
         this.player.body.checkCollision.left = false;
         this.player.body.checkCollision.right = false;
@@ -67,20 +81,13 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-    }
+    
+        }
 
     // updates every frame
     update() {
-        if (keyLEFT.isDown) { // left key is pressed
-            this.player.x -= 10; // move player left
-            this.player.setFlip(true, false);
-        }
-
-        if (keyRIGHT.isDown) { // right key is pressed
-            this.player.x += 10; // move player right
-            this.player.resetFlip();
-
-        }
-
+        
+        this.player.update();
+        
     }
 }
