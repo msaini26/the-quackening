@@ -17,4 +17,8 @@ let config = {
     scene: [Play], //add menu later
 }
 
+// define the keys
+let keyF, keyR, keyLEFT, keyRIGHT; 
+
+
 let game = new Phaser.Game(config);
