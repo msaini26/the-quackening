@@ -5,53 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Quackening</title>
-  <!-- Import Custom Font -->
-  <link rel="preload" as="font" href="assets/fonts/Ducky.ttf" type="font/ttf" crossorigin="anonymous"/>
-  <link rel="preload" as="font" href="assets/fonts/chicken-pie.ttf" type="font/ttf" crossorigin="anonymous"/>
-  <link rel="preload" as="font" href="assets/fonts/comic-story.ttf" type="font/ttf" crossorigin="anonymous" />
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
 
   <style>
     body {
       background-color: #cddcec;
     }
-
-    /* import chicken pie font */
-    @font-face {
-      font-family: chicken-pie;
-      src: url('./assets/fonts/chicken-pie.ttf');
-    }
-
-    /* import comic story font */
-    @font-face {
-      font-family: comic-story;
-      src: url('./assets/fonts/comic-story.ttf');
-    }
-    
-    /* import duck font */
-    @font-face {
-      font-family: ducko;
-      src: url('./assets/fonts/Ducky.ttf');
-    }
   </style>
 </head>
 <body>
-  <script>
-    WebFont.load({
-        google: {
-            families: ['Concert One:400']
-        }
-    });
-</script>
+
   <!-- Import JS files -->
   <script src="./lib/phaser.js"></script>
-  <script src="./src/prefabs/Rocket.js"></script>
-  <script src="./src/prefabs/Enemy.js"></script>
-  <script src="./src/prefabs/Spaceship.js"></script>
-  <script src="./src/prefabs/Platform.js"></script>
   <script src="./src/scenes/Menu.js"></script>
-  <script src="./src/scenes/GameControls.js"></script>
   <script src="./src/scenes/Play.js"></script>
+  <script src="./src/prefabs/Platform.js"></script>
+  <script src="./src/prefabs/Enemy.js"></script>
   <script src="./src/main.js"></script>
   
 </body>
