@@ -45,11 +45,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         // physics variables
 
-            this.ACCELERATION = 500;        // rate of change
-            this.MAX_X_VEL = 200;           // as fast as it can go on x axis
-            this.MAX_Y_VEL = 2000;          // as fast on y axis
-            this.DRAG = 600;                // slow-down rate
-            this.JUMP_VELOCITY = -1000;      // jump power!
+            this.ACCELERATION = 800;            // rate of change
+            this.MAX_X_VEL = 1000;              // as fast as it can go on x axis
+            this.MAX_Y_VEL = 2000;              // as fast on y axis
+            this.GROUND_DRAG = 3000;            // slow-down rate
+            this.AIR_DRAG = 500;               // slow-down rate
+            this.JUMP_VELOCITY = -1000;         // jump power!
             this.GLIDE_VELOCITY = 10;
 
             this.activated = false;         // ignore - for own testing
@@ -64,6 +65,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // checks
 
             this.glidable = false;      // simple boolean for whether or not glide available
+            this.grounded = false;
         
         // final check
             console.log("from Player.js: constructed!");
@@ -76,7 +78,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.body.blocked.down) {
 
-            this.glidable = true;
+            this.glidable = false;
+            this.grounded = true;
+
+            this.body.setDragX(this.GROUND_DRAG);
 
         }
 
@@ -94,25 +99,32 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         } else {                        // idle
 
             this.body.setAccelerationX(0);      // cut acceleration
-            this.body.setDragX(this.DRAG);      // but don't cut immediately
+            
+            if (this.grounded) {
+                this.body.setDragX(this.GROUND_DRAG);      // but don't cut immediately
+            } else {
+                this.body.setDragX(this.AIR_DRAG);
+            }
 
         }
 
         if (this.body.blocked.down && Phaser.Input.Keyboard.JustDown(keyF)) {   // if grounded and jump key pressed...
 
+            this.grounded = false;
             this.body.setVelocityY(this.JUMP_VELOCITY);
 
         }
 
         if (this.body.velocity.y == 0) {            // 0 velocity reached when arching
 
-            this.glidable = false;                  // glide enabled
+            this.glidable = true;                  // glide enabled
         
         }
 
-        if (keyF.isDown && !this.glidable) {        // if jump held while glidable...
+        if (keyF.isDown && this.glidable) {        // if jump held while glidable...
 
             this.body.setVelocityY(this.GLIDE_VELOCITY);    // ..constant descent
+            this.body.setDragX(this.AIR_DRAG);
         
         }
 
