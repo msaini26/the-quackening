@@ -50,6 +50,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.MAX_Y_VEL = 2000;          // as fast on y axis
             this.DRAG = 600;                // slow-down rate
             this.JUMP_VELOCITY = -1000;      // jump power!
+            this.GLIDE_VELOCITY = 10;
 
             this.activated = false;         // ignore - for own testing
 
@@ -60,12 +61,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);       // sets limits to speed
             this.body.setCollideWorldBounds(true);                          // can't exit world
 
+        // checks
+
+            this.glidable = false;      // simple boolean for whether or not glide available
+        
         // final check
             console.log("from Player.js: constructed!");
 
     }
 
     update() {      // update method
+
+        //console.log("from Player.js: from update(): running y vel:", this.body.velocity.y);
+
+        if (this.body.blocked.down) {
+
+            this.glidable = true;
+
+        }
 
         if (keyLEFT.isDown) {           // moving left
 
@@ -89,6 +102,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.body.setVelocityY(this.JUMP_VELOCITY);
 
+        }
+
+        if (this.body.velocity.y == 0) {            // 0 velocity reached when arching
+
+            this.glidable = false;                  // glide enabled
+        
+        }
+
+        if (keyF.isDown && !this.glidable) {        // if jump held while glidable...
+
+            this.body.setVelocityY(this.GLIDE_VELOCITY);    // ..constant descent
+        
         }
 
     }
