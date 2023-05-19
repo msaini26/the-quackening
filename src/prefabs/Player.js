@@ -34,7 +34,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene, x, y, texture, frame) {
 
-        console.log("from Player.js: constructing...");
+        // console.log("from Player.js: constructing...");
 
         super(scene, x, y, texture, frame);     // inherit or somethin'
         this.parentScene = scene;               // save scene
@@ -51,7 +51,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.MAX_Y_VEL = 2000;              // as fast on y axis
             this.GROUND_DRAG = 3000;            // slow-down rate
             this.AIR_DRAG = 500;               // slow-down rate
-            this.JUMP_VELOCITY = -1300;         // jump power!
+            this.JUMP_VELOCITY = -1000;         // jump power!
             this.GLIDE_VELOCITY = 250;
 
             this.activated = false;         // ignore - for own testing
@@ -63,13 +63,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);       // sets limits to speed
             this.body.setCollideWorldBounds(true);                          // can't exit world
 
+
         // checks
 
             this.glidable = false;      // simple boolean for whether or not glide available
             this.grounded = false;
         
         // final check
-            console.log("from Player.js: constructed!");
+            // console.log("from Player.js: constructed!");
 
     }
 

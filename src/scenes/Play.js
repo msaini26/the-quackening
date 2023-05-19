@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
         this.DRAG = 700; 
         this.JUMP_VELOCITY = -700;
         this.MAX_JUMPS = 3;
-        this.SCROLL_SPEED = 4;
+        // this.SCROLL_SPEED = 4;
         this.physics.world.gravity.y = 3000;
         this.platformSpeed = -200;
         this.platformSpeedMax = -700;
