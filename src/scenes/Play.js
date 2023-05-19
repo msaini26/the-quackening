@@ -20,6 +20,9 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.atlas("yellow", "./assets/yellow.png", "./assets/yellow.json");
         this.load.image("brick", "./assets/greenBrick.png");
+        
+        // load background music
+        this.load.audio('background_music', './assets/audio/background.mp3');
     }
 
     // create objects and instances in phaser canvas
@@ -34,7 +37,7 @@ class Play extends Phaser.Scene {
         this.platformSpeed = -200;
         this.platformSpeedMax = -700;
 
-
+        // ground tiles
         this.ground = this.add.group();
         for(let i = 0; i < game.config.width; i += 193) {
             let groundTile = this.physics.add.sprite(i, game.config.height - 23, 'brick').setOrigin(0);
@@ -52,6 +55,19 @@ class Play extends Phaser.Scene {
         this.player.body.checkCollision.right = false;
 
         this.physics.add.collider(this.player, this.ground);
+
+        // background music configurations
+        let musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true,
+            delay: 0,
+        }
+
+        // create sound instance
+        var music = this.sound.add('background_music', musicConfig);
+        music.play(musicConfig); // play music with config settings
 
 
 
