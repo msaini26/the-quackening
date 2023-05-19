@@ -26,6 +26,7 @@
 //  - less control
 //  - more over-the-top
 //  - ori, 2D mario
+
 //
 //////////////////////
 
@@ -50,8 +51,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.MAX_Y_VEL = 2000;              // as fast on y axis
             this.GROUND_DRAG = 3000;            // slow-down rate
             this.AIR_DRAG = 500;               // slow-down rate
-            this.JUMP_VELOCITY = -1000;         // jump power!
-            this.GLIDE_VELOCITY = 10;
+            this.JUMP_VELOCITY = -1300;         // jump power!
+            this.GLIDE_VELOCITY = 250;
 
             this.activated = false;         // ignore - for own testing
 

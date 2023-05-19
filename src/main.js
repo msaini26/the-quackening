@@ -1,3 +1,11 @@
+/*
+
+ISSUES: fix glide so when player hits ground, it doesn't bounce back up again. 
+
+*/
+
+
+
 'use strict';
 
 let config = {
