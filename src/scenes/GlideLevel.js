@@ -5,6 +5,7 @@
 //  - updated glide tutorial
 //  - now forces player to use glide
 //  - death by falling now possible
+//  - updated level (expanded tutorial)
 //
 ////////////////////////////////
 
