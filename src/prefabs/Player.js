@@ -47,12 +47,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // physics variables
 
             this.ACCELERATION = 800;            // rate of change
-            this.MAX_X_VEL = 1000;              // as fast as it can go on x axis
+            this.MAX_X_VEL = 500;              // as fast as it can go on x axis
             this.MAX_Y_VEL = 2000;              // as fast on y axis
             this.GROUND_DRAG = 3000;            // slow-down rate
             this.AIR_DRAG = 500;               // slow-down rate
             this.JUMP_VELOCITY = -1000;         // jump power!
-            this.GLIDE_VELOCITY = 250;
+            this.GLIDE_VELOCITY = 150;
 
             this.activated = false;         // ignore - for own testing
 
@@ -76,7 +76,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     update() {      // update method
 
-        //console.log("from Player.js: from update(): running y vel:", this.body.velocity.y);
+        // console.log("from Player.js: from update(): running y vel:", this.body.velocity.y);
 
         if (this.body.blocked.down) {
 
@@ -84,6 +84,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.grounded = true;
 
             this.body.setDragX(this.GROUND_DRAG);
+
+        } else {
+
+            this.grounded = false;
+
+            this.body.setDragX(this.AIR_DRAG);
 
         }
 
@@ -112,18 +118,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.body.blocked.down && Phaser.Input.Keyboard.JustDown(keyF)) {   // if grounded and jump key pressed...
 
+            // console.log("from Player.js: from update(): jumping!");
+
             this.grounded = false;
             this.body.setVelocityY(this.JUMP_VELOCITY);
 
         }
 
-        if (this.body.velocity.y == 0) {            // 0 velocity reached when arching
+        if (this.body.velocity.y >= 0 && !this.grounded) {            // 0 velocity reached when arching
+
+            console.log("from Player.js: from update(): peaked");
 
             this.glidable = true;                  // glide enabled
         
         }
 
         if (keyF.isDown && this.glidable) {        // if jump held while glidable...
+
+            // console.log("from Player.js: from update(): should be gliding...");
 
             this.body.setVelocityY(this.GLIDE_VELOCITY);    // ..constant descent
             this.body.setDragX(this.AIR_DRAG);

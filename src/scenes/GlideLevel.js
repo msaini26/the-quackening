@@ -42,9 +42,9 @@ class GlideLevel extends Phaser.Scene {
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
 
         //adding player
-        this.p1 = this.physics.add.sprite(blobSpawn.x, blobSpawn.y, 'yellow', 'yellow1').setScale(0.35); 
+        //this.p1 = this.physics.add.sprite(blobSpawn.x, blobSpawn.y, 'yellow', 'yellow1').setScale(0.35); 
 
-        // this.player = new Player(this, 100, 100, "yellow", "yellow1").setScale(0.25); 
+        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
         // this.player = this.physics.add.sprite(blobSpawn.x, blobSpawn.y, 'yellow', 0).setScale(0.25);
 
         //creating slime animation
@@ -90,17 +90,17 @@ class GlideLevel extends Phaser.Scene {
         //user input
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F); 
-        // keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        // keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        // keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F); 
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
     }
 
     update() {
         // this.p1.update();
 
-        if(this.cursors.left.isDown) {
+        /* if(this.cursors.left.isDown) {
             this.p1.body.setAccelerationX(-this.ACCELERATION);
             this.p1.play('walk', true);
             this.p1.setFlip(true, false);
@@ -121,7 +121,9 @@ class GlideLevel extends Phaser.Scene {
         }
         if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             this.p1.body.setVelocityY(this.JUMP_VELOCITY);
-        }
+        }*/
+
+        this.p1.update();
 
     }
 
