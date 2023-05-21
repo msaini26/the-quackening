@@ -1,3 +1,12 @@
+// Notes and Questions /////////
+//
+// Fern update:
+//  - instant of player object
+//  - updated glide tutorial
+//  - now forces player to use glide
+//
+////////////////////////////////
+
 class GlideLevel extends Phaser.Scene {
     constructor() {
         super("glideLevelScene");

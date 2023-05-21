@@ -127,7 +127,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.body.velocity.y >= 0 && !this.grounded) {            // 0 velocity reached when arching
 
-            console.log("from Player.js: from update(): peaked");
+            // console.log("from Player.js: from update(): peaked");
 
             this.glidable = true;                  // glide enabled
         
