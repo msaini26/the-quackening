@@ -1,7 +1,11 @@
+//https://pixelfrog-assets.itch.io/pixel-adventure-1
 'use strict';
 
 let config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
+    render: {
+        pixelArt: true
+    },
     width: 800,
     height: 600,
     physics: {

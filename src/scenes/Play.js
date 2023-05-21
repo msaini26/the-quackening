@@ -18,12 +18,23 @@ class Play extends Phaser.Scene {
 
     // preload assets
     preload() {
-        this.load.atlas("yellow", "./assets/yellow.png", "./assets/yellow.json");
-        this.load.image("brick", "./assets/greenBrick.png");
+        this.load.path='./assets/';
+
+        this.load.atlas("yellow", "yellow.png", "yellow.json");
+        this.load.image("brick", "greenBrick.png");
+
+        this.load.image('tilesetImage','Terrain (16x16).png');
+        this.load.tilemapTiledJSON('tilemapJSON','area01.json');
     }
 
     // create objects and instances in phaser canvas
     create() {
+        const map=this.add.tilemap('tilemapJSON');
+        const tileset= map.addTilesetImage('tileset', 'tilesetImage');
+
+        //add back
+        //const bgLayer=map.createLayer('platform',tileset,0,0);
+
         //setting variables to track speed of platforms and jump/walk speed
         this.ACCELERATION = 600;
         this.DRAG = 700; 
@@ -33,7 +44,6 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
         this.platformSpeed = -200;
         this.platformSpeedMax = -700;
-
 
         this.ground = this.add.group();
         for(let i = 0; i < game.config.width; i += 193) {
