@@ -1,25 +1,15 @@
-// Notes and Questions /////////
-//
-// Fern update:
-//  - instant of player object
-//  - updated glide tutorial
-//  - now forces player to use glide
-//  - death by falling now possible
-//
-////////////////////////////////
-
-class GlideLevel extends Phaser.Scene {
+class JumpLevel extends Phaser.Scene {
     constructor() {
-        super("glideLevelScene");
+        super("jumpLevelScene");
     }
 
     preload() {
         this.load.path = '/assets/'; //set loading path
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
-        this.load.image('pinkImage', './Background/Pink.png');
+        this.load.image('greenImage', './Background/Green.png');
 
-        this.load.tilemapTiledJSON('glideLevelJSON', 'glideLevel.json');
+        this.load.tilemapTiledJSON('jumpLevelJSON', 'jumpLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
     }
 
@@ -27,15 +17,15 @@ class GlideLevel extends Phaser.Scene {
         this.physics.world.gravity.y = 3000;
 
         //creating tilemap
-        const map = this.add.tilemap('glideLevelJSON');
+        const map = this.add.tilemap('jumpLevelJSON');
 
         //adding tileset images
         const terrainTileSet = map.addTilesetImage('Terrain', 'terrainImage');
-        const backgroundTileSet = map.addTilesetImage('Pink', 'pinkImage');
+        const backgroundTileSet = map.addTilesetImage('Green', 'greenImage');
 
         //creating layers
         const bgLayer = map.createLayer('Background', backgroundTileSet, 0, 0);
-        const terrainLayer = map.createLayer('Terrain', terrainTileSet, 0, 0);
+        const terrainLayer = map.createLayer('Platform', terrainTileSet, 0, 0);
 
         //enable collision
         terrainLayer.setCollisionByProperty({collides: true});
@@ -113,13 +103,21 @@ class GlideLevel extends Phaser.Scene {
         }
 
         //creating control instructions
-        this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+        this.add.text(10, 10, "⬆️ to jump", controlConfig);
+        this.add.text(10, 40, "⬅️ ➡️ to move", controlConfig);
+        // this.add.text(10, 70, "Press ⬆️ and ⬅️ / ➡️ to glide", controlConfig);
+
+        this.mapWidth = map.widthInPixels;
 
     }
 
     update() {
         
         this.p1.update();
+
+        if(this.p1.x >= this.mapWidth - 20){
+            this.scene.start('glideLevelScene');
+        }
     
     }
 

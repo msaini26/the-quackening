@@ -25,7 +25,7 @@ let config = {
             }
         }
     },
-    scene: [GlideLevel, Play], //add menu later
+    scene: [JumpLevel, GlideLevel, Play], //add menu later
 }
 
 // define the keys
