@@ -99,12 +99,30 @@ class GlideLevel extends Phaser.Scene {
         this.physics.add.collider(this.p1, this.terrainLayer);
 
         //user input
-        this.cursors = this.input.keyboard.createCursorKeys();
+        // this.cursors = this.input.keyboard.createCursorKeys();
 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F); 
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+
+        //controls text configuration
+        let controlConfig = {
+            fontFamily: 'Arial',
+            fontSize: '18px',
+            color: '#000000',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            }
+        }
+
+        //creating control instructions
+        this.add.text(10, 10, "⬆️ to jump", controlConfig);
+        this.add.text(10, 40, "⬅️ ➡️ to move", controlConfig);
+        this.add.text(10, 70, "Press ⬆️ and ⬅️ / ➡️ to glide", controlConfig);
 
     }
 

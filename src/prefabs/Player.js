@@ -79,7 +79,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // falling death
         
         if (this.y >= this.parentScene.lowerBound) {    // checks lower bound
-
+            
             this.parentScene.scene.restart();           // restarts if hit
 
         }
@@ -128,7 +128,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         }
 
-        if (this.body.blocked.down && Phaser.Input.Keyboard.JustDown(keyF)) {   // if grounded and jump key pressed...
+        if (this.body.blocked.down && Phaser.Input.Keyboard.JustDown(keyUP)) {   // if grounded and jump key pressed...
 
             // console.log("from Player.js: from update(): jumping!");
 
@@ -145,7 +145,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         
         }
 
-        if (keyF.isDown && this.glidable) {        // if jump held while glidable...
+        if (keyUP.isDown && this.glidable) {        // if jump held while glidable...
 
             // console.log("from Player.js: from update(): should be gliding...");
 
