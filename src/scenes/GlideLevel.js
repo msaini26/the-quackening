@@ -4,6 +4,7 @@
 //  - instant of player object
 //  - updated glide tutorial
 //  - now forces player to use glide
+//  - death by falling now possible
 //
 ////////////////////////////////
 
@@ -51,11 +52,8 @@ class GlideLevel extends Phaser.Scene {
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
 
         //adding player
-        //this.p1 = this.physics.add.sprite(blobSpawn.x, blobSpawn.y, 'yellow', 'yellow1').setScale(0.35); 
-
         this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
-        // this.player = this.physics.add.sprite(blobSpawn.x, blobSpawn.y, 'yellow', 0).setScale(0.25);
-
+        
         //creating slime animation
         this.anims.create({
             key: 'walk',
@@ -86,12 +84,16 @@ class GlideLevel extends Phaser.Scene {
 
         //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
+
         //parameters player, round pixels, lerp -> how slow or fast camera follows
         this.cameras.main.startFollow(this.p1, true, 0.25, 0.25); //makes camera follow player
+
         //set physics world gravity
         this.physics.world.gravity.y = 2000;
-        //change physics world bounds to follow camera
-        this.physics.world.bounds.setTo(0, 0, map.widthInPixels, 600);
+
+        //change physics world bounds
+        this.physics.world.bounds.setTo(0, 0, map.widthInPixels);   // important not to fill last one
+        this.lowerBound = map.heightInPixels + this.p1.height * 5;  // VERY important - player will use for death
 
         //physics collision
         this.physics.add.collider(this.p1, this.terrainLayer);
@@ -107,33 +109,9 @@ class GlideLevel extends Phaser.Scene {
     }
 
     update() {
-        // this.p1.update();
-
-        /* if(this.cursors.left.isDown) {
-            this.p1.body.setAccelerationX(-this.ACCELERATION);
-            this.p1.play('walk', true);
-            this.p1.setFlip(true, false);
-        } else if(this.cursors.right.isDown) {
-            this.p1.body.setAccelerationX(this.ACCELERATION);
-            this.p1.play('walk', true);
-            this.p1.resetFlip();
-        } else {
-            // set acceleration to 0 so DRAG will take over
-            // this.p1.play('idle');
-            this.p1.body.setAccelerationX(0);
-            this.p1.body.setDragX(this.DRAG);
-        }
-        // player jump
-        // note that we need body.blocked rather than body.touching b/c the former applies to tilemap tiles and the latter to the "ground"
-        if(!this.p1.body.blocked.down) {
-            // this.p1.anims.play('jump');
-        }
-        if(this.p1.body.blocked.down && Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
-            this.p1.body.setVelocityY(this.JUMP_VELOCITY);
-        }*/
-
+        
         this.p1.update();
-
+    
     }
 
 }

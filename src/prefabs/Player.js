@@ -37,7 +37,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // console.log("from Player.js: constructing...");
 
         super(scene, x, y, texture, frame);     // inherit or somethin'
-        this.parentScene = scene;               // save scene
+        this.parentScene = scene;               // save scene for later
 
         // activate physics
 
@@ -76,22 +76,34 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     update() {      // update method
 
-        // console.log("from Player.js: from update(): running y vel:", this.body.velocity.y);
+        // falling death
+        
+        if (this.y >= this.parentScene.lowerBound) {    // checks lower bound
 
-        if (this.body.blocked.down) {
-
-            this.glidable = false;
-            this.grounded = true;
-
-            this.body.setDragX(this.GROUND_DRAG);
-
-        } else {
-
-            this.grounded = false;
-
-            this.body.setDragX(this.AIR_DRAG);
+            this.parentScene.scene.restart();           // restarts if hit
 
         }
+
+
+        // checks
+
+        if (this.body.blocked.down) {   // if on ground..
+
+            this.glidable = false;      // gliding not possible
+            this.grounded = true;       // grounded
+
+            this.body.setDragX(this.GROUND_DRAG);   // more immediate deceleration
+
+        } else {                        // otherwise..
+
+            this.grounded = false;      // NOT on ground
+
+            this.body.setDragX(this.AIR_DRAG);  // less control on ground
+
+        }
+
+
+        // movement
 
         if (keyLEFT.isDown) {           // moving left
 
