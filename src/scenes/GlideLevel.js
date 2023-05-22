@@ -116,6 +116,10 @@ class GlideLevel extends Phaser.Scene {
         //creating control instructions
         this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
 
+        this.mapWidth = map.widthInPixels;
+
+        this.nextScene = 'jumpLevelScene';
+
     }
 
     update() {
