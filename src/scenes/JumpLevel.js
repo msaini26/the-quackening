@@ -115,7 +115,7 @@ class JumpLevel extends Phaser.Scene {
         
         this.p1.update();
 
-        if(this.p1.x >= this.mapWidth - 20){
+        if(this.p1.x >= this.mapWidth - 30){
             this.scene.start('glideLevelScene');
         }
     

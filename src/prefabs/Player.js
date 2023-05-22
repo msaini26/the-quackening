@@ -59,7 +59,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // set up physics sprite
 
             this.body.setBounce(0.5);                                       // mutable - just a bit of character - slight reaction to landing
-            this.body.setSize(this.width/2);                                // physics size
+            this.body.setSize(this.width/1.1);                                // physics size
             this.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);       // sets limits to speed
             this.body.setCollideWorldBounds(true);                          // can't exit world
 
