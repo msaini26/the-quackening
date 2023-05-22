@@ -5,10 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Quackening</title>
+  <!-- Import Custom Font -->
+  <link rel="preload" as="font" href="assets/fonts/ducko.ttf" type="font/ttf" crossorigin="anonymous" />
 
   <style>
     body {
       background-color: #cddcec;
+    }
+
+     /* import duck font */
+     @font-face {
+      font-family: ducko;
+      src: url('./assets/fonts/ducko.ttf');
     }
   </style>
 </head>
@@ -21,8 +29,6 @@
   <script src="./src/scenes/GlideLevel.js"></script>
   <script src="./src/scenes/Play.js"></script>
   <script src="./src/prefabs/Player.js"></script>
-  <script src="./src/prefabs/Platform.js"></script>
-  <script src="./src/prefabs/Enemy.js"></script>
   <script src="./src/main.js"></script>
   
 </body>

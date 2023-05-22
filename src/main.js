@@ -18,18 +18,26 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            // debug: true,
             gravity: {
                 x: 0,
                 y: 0
             }
         }
     },
+
+    // TODO: MENU IS DONE; JUST NEED TO ADD INTO THIS LIST
     scene: [JumpLevel, GlideLevel, Play], //add menu later
 }
+
+let game = new Phaser.Game(config);
 
 // define the keys
 let keyF, keyR, keyLEFT, keyRIGHT, keyUP; 
 
+// border UI size
+let borderUISize = game.config.height / 15; // set UI height
+let borderPadding = borderUISize / 3; // set padding around game frame
 
-let game = new Phaser.Game(config);
+
+

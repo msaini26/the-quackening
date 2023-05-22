@@ -102,7 +102,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         }
 
-
         // movement
 
         if (keyLEFT.isDown) {           // moving left
@@ -144,6 +143,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.glidable = true;                  // glide enabled
         
         }
+
+        console.log("HIIIII", keyUP);
+        console.log("WHAT IS WRONG", keyF);
+
 
         if ((keyUP.isDown || keyF.isDown) && this.glidable) {        // if jump held while glidable...
 
