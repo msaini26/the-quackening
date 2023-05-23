@@ -4,8 +4,6 @@ ISSUES: fix glide so when player hits ground, it doesn't bounce back up again.
 
 */
 
-
-
 'use strict';
 
 let config = {
@@ -26,8 +24,7 @@ let config = {
         }
     },
 
-    // TODO: MENU IS DONE; JUST NEED TO ADD INTO THIS LIST
-    scene: [JumpLevel, GlideLevel, Play], //add menu later
+    scene: [Menu, JumpLevel, GlideLevel, Play], //add menu later
 }
 
 let game = new Phaser.Game(config);
