@@ -87,7 +87,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         
         // transition to next scene
 
-        if(this.x >= this.parentScene.mapWidth - 20){
+        if(this.x >= this.parentScene.mapWidth - 30){
             this.parentScene.scene.start(this.parentScene.nextScene);
         }
 
