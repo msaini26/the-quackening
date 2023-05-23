@@ -1,3 +1,7 @@
+// notes
+// each template, update lines that start with "//////////"
+// update as needed
+
 class JumpLevel extends Phaser.Scene {
     constructor() {
         super("jumpLevelScene");
@@ -19,11 +23,14 @@ class JumpLevel extends Phaser.Scene {
         //creating tilemap
         const map = this.add.tilemap('jumpLevelJSON');
 
-        //adding tileset images
+////////// next level
+        this.nextScene = 'glideLevelScene';     // necessary - where to next?
+
+//////////adding tileset images     // update as needed
         const terrainTileSet = map.addTilesetImage('Terrain', 'terrainImage');
         const backgroundTileSet = map.addTilesetImage('Green', 'greenImage');
 
-        //creating layers
+//////////creating layers           // update as needed
         const bgLayer = map.createLayer('Background', backgroundTileSet, 0, 0);
         const terrainLayer = map.createLayer('Platform', terrainTileSet, 0, 0);
 
@@ -78,7 +85,7 @@ class JumpLevel extends Phaser.Scene {
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels);   // important not to fill last one
         this.lowerBound = map.heightInPixels + this.p1.height * 5;  // VERY important - player will use for death
 
-        //physics collision
+//////////physics collision     // update
         this.physics.add.collider(this.p1, terrainLayer);
 
         //user input
@@ -108,8 +115,6 @@ class JumpLevel extends Phaser.Scene {
         // this.add.text(10, 70, "Press ⬆️ and ⬅️ / ➡️ to glide", controlConfig);
 
         this.mapWidth = map.widthInPixels;
-
-        this.nextScene = 'glideLevelScene';
 
     }
 
