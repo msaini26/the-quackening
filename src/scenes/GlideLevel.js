@@ -65,18 +65,7 @@ class GlideLevel extends Phaser.Scene {
         //setting collision
         this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
 
-
-        // define a render debug so we can see the tilemap's collision bounds
-        // const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // terrainLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
-
-
-
-        //cameras
+//cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
 
         //parameters player, round pixels, lerp -> how slow or fast camera follows
@@ -115,6 +104,10 @@ class GlideLevel extends Phaser.Scene {
 
         //creating control instructions
         this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+
+        this.mapWidth = map.widthInPixels;
+
+        this.nextScene = 'jumpLevelScene';
 
     }
 
