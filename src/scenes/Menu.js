@@ -14,7 +14,7 @@ class Menu extends Phaser.Scene {
 
         // credit: pixabay - AudioCoffee: Song of the little ducks
         // load background music
-        this.load.audio('background_music', './assets/audio/menu.mp3');
+        this.load.audio('menu', './assets/audio/menu.mp3');
 
     }
 
@@ -58,17 +58,16 @@ class Menu extends Phaser.Scene {
             align: 'center',
         };
 
-       
         // show menu text
         var title = this.add.text(game.config.width/30, game.config.height/4 - borderUISize - borderPadding, ' The', titleConfig);
         var title_2 = this.add.text(game.config.width/30, game.config.height/2.5 - borderUISize - borderPadding, 'Quackening', titleConfig);
-        title.setShadow(4, 4, '#2d4e3f');
-        title_2.setShadow(4, 4, '#2d4e3f');
+        title.setShadow(4, 4, '#424130');
+        title_2.setShadow(4, 4, '#424130');
 
-        menuConfig.backgroundColor = '#00FF00';
+        menuConfig.backgroundColor = '#eeecd0';
         menuConfig.color = '#000';
         var level_mode = this.add.text(game.config.width/3.5, game.config.height/1.5, 'Press ← to continue', subConfig).setOrigin(0.5);
-        level_mode.setShadow(4, 4, '#2d4e3f');
+        level_mode.setShadow(4, 4, '#424130');
 
 
         // define keys
@@ -85,7 +84,7 @@ class Menu extends Phaser.Scene {
         }
 
         // create sound instance
-        this.music = this.sound.add('background_music', musicConfig);
+        this.music = this.sound.add('menu', musicConfig);
         this.music.play(musicConfig); // play music with config settings
 
     }
@@ -93,9 +92,9 @@ class Menu extends Phaser.Scene {
     // updates per frame
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            this.sound.play('sfx_select'); // play background music
-            this.scene.start('playScene');
-            this.music.stop();
+            this.sound.play('sfx_select'); // play selector sound
+            this.scene.start('jumpLevelScene'); // begin first level
+            this.music.stop(); // stop music
         }
     }
 }
