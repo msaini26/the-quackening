@@ -11,6 +11,9 @@ class JumpLevel extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('jumpLevelJSON', 'jumpLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
+
+         // load background music
+        this.load.audio('background_music', './audio/background.mp3');
     }
 
     create() {
@@ -53,6 +56,19 @@ class JumpLevel extends Phaser.Scene {
 
         //setting collision
         this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
+
+        // background music configurations
+        let levelMusicConfig = {
+            mute: false,
+            volume: 2.5,
+            rate: 1,
+            loop: true,
+            delay: 0,
+        }
+
+        // create sound instance
+        this.gameMusic = this.sound.add('background_music', levelMusicConfig);
+        this.gameMusic.play(levelMusicConfig); // play music with config settings
 
 
         // define a render debug so we can see the tilemap's collision bounds
