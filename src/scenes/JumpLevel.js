@@ -103,6 +103,7 @@ class JumpLevel extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //controls text configuration
         let controlConfig = {
@@ -123,11 +124,15 @@ class JumpLevel extends Phaser.Scene {
 
         this.mapWidth = map.widthInPixels;
 
+        // clock
+        this.clock = new Phaser.Time.Clock(this);
+
     }
 
     update() {
         
         this.p1.update();
+        //console.log("from JumpLevel: from update(): time elapsed:", this.time.now);
     
     }
 

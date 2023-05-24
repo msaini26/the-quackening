@@ -1,5 +1,12 @@
 // Player prefab
 
+//// UPDATES /////////
+//
+// quack now possible!
+//  - quack behavior not yet integrated
+//
+//////////////////////
+
 //// NOTES ///////////
 //
 //  GOALS:
@@ -26,7 +33,7 @@
 //  - less control
 //  - more over-the-top
 //  - ori, 2D mario
-
+//
 //
 //////////////////////
 
@@ -71,6 +78,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.glidable = false;      // simple boolean for whether or not glide available
             this.grounded = false;
+
+            this.quackCooldown = 3000;
+            this.quackTime = 1000;
+            this.quackAvailable = true;
+            this.quackRadius.alpha = 0;
+
+            this.timeNow = this.parentScene.time.now;
+            this.timeSince = this.parentScene.time.now;
         
         // final check
             // console.log("from Player.js: constructed!");
@@ -88,15 +103,40 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
 
-        // quack follows
+        // quack
 
+            // quack pos
         this.quackRadius.x = this.x
         this.quackRadius.y = this.y
 
+            // quack key
+
+        this.timeNow = this.parentScene.time.now;
+
+        if (this.quackAvailable && (Phaser.Input.Keyboard.JustDown(keySPACE))) {
+
+            this.quackRadius.alpha = 1;
+            this.quackAvailable = false;
+
+            this.timeSince = this.parentScene.time.now;
+
+            console.log("from Player.js: from update(): time quacked:", this.timeSince);
+
+        }
+
+        if ((this.timeNow - this.timeSince) >= this.quackTime && !this.quackAvailable) {
+            this.quackRadius.alpha = 0;
+            console.log("from Player.js: from update(): quack gone u_u", this.timeSince);
+        }
+
+        if ((this.timeNow - this.timeSince) >= this.quackCooldown && !this.quackAvailable) {
+            this.quackAvailable = true;
+            console.log("from Player.js: from update(): quack available!", this.timeSince);
+        }
         
         // transition to next scene
 
-        if(this.x >= this.parentScene.mapWidth - 30){
+        if (this.x >= this.parentScene.mapWidth - 30){
             this.parentScene.scene.start(this.parentScene.nextScene);
         }
 
@@ -168,6 +208,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.setDragX(this.AIR_DRAG);
         
         }
+
+    }
+
+    someFunction() {
+
+        console.log("from Player.js: from someFunction(): some event just ended");
 
     }
 
