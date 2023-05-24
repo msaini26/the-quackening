@@ -1,46 +1,35 @@
-// Notes and Questions /////////
-//
-// Fern update:
-//  - instant of player object
-//  - updated glide tutorial
-//  - now forces player to use glide
-//  - death by falling now possible
-//  - updated level (expanded tutorial)
-//
-////////////////////////////////
-
-class GlideLevel extends Phaser.Scene {
+class EnemyLevel extends Phaser.Scene {
     constructor() {
-        super("glideLevelScene");
+        super("enemyLevelScene");
     }
 
     preload() {
         this.load.path = '/assets/'; //set loading path
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
-        this.load.image('pinkImage', './Background/Pink.png');
+        this.load.image('brownImage', './Background/Brown.png');
+        this.load.image('ghost', 'enemy.png');
 
-        this.load.tilemapTiledJSON('glideLevelJSON', 'glideLevel.json');
+        this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
-        this.load.image('quack', 'quack_prelim.png');
     }
 
     create() {
         this.physics.world.gravity.y = 3000;
 
         //creating tilemap
-        const map = this.add.tilemap('glideLevelJSON');
+        const map = this.add.tilemap('enemyJSON');
 
         //adding tileset images
         const terrainTileSet = map.addTilesetImage('Terrain', 'terrainImage');
-        const backgroundTileSet = map.addTilesetImage('Pink', 'pinkImage');
+        const backgroundTileSet = map.addTilesetImage('Brown', 'brownImage');
 
         //creating layers
         const bgLayer = map.createLayer('Background', backgroundTileSet, 0, 0);
         const terrainLayer = map.createLayer('Terrain', terrainTileSet, 0, 0);
 
         //enable collision
-        terrainLayer.setCollisionByProperty({collides: true});
+        terrainLayer.setCollisionByProperty({Collides: true});
         // terrainLayer.collide = true;
 
         //spawn location = where player starts
@@ -49,6 +38,14 @@ class GlideLevel extends Phaser.Scene {
         //adding player
         this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
         this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
+
+        //spawn location = where player starts
+        const enemySpawn = map.findObject('Enemies', obj => obj.name === 'Enemy');
+        console.log('enemy x is ' + enemySpawn.x);
+        console.log('enemy y is ' + enemySpawn.y);
+
+        // this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost'); 
+        this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost').setScale(0.5); 
         
         //creating slime animation
         this.anims.create({
@@ -67,6 +64,8 @@ class GlideLevel extends Phaser.Scene {
         //setting collision
         this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
 
+        this.enemy.body.setCollideWorldBounds(true);
+
 //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
 
@@ -82,6 +81,7 @@ class GlideLevel extends Phaser.Scene {
 
         //physics collision
         this.physics.add.collider(this.p1, terrainLayer);
+        this.physics.add.collider(this.enemy, terrainLayer);
 
         //user input
         // this.cursors = this.input.keyboard.createCursorKeys();
@@ -91,7 +91,6 @@ class GlideLevel extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //controls text configuration
         let controlConfig = {
@@ -110,7 +109,7 @@ class GlideLevel extends Phaser.Scene {
 
         this.mapWidth = map.widthInPixels;
 
-        this.nextScene = 'enemyLevelScene';
+        this.nextScene = 'jumpLevelScene';
 
     }
 
