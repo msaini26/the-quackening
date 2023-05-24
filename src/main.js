@@ -16,7 +16,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //  debug: true,
+             debug: true,
             gravity: {
                 x: 0,
                 y: 0
@@ -24,7 +24,7 @@ let config = {
         }
     },
 
-    scene: [Menu, JumpLevel, GlideLevel, Play], //add menu later
+    scene: [Menu, JumpLevel, GlideLevel, EnemyLevel, Play], //add menu later
 }
 
 let game = new Phaser.Game(config);
