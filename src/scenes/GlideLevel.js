@@ -22,6 +22,7 @@ class GlideLevel extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('glideLevelJSON', 'glideLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
+        this.load.image('quack', 'quack_prelim.png');
     }
 
     create() {
@@ -46,7 +47,8 @@ class GlideLevel extends Phaser.Scene {
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
 
         //adding player
-        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
+        this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
+        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
         
         //creating slime animation
         this.anims.create({
@@ -89,6 +91,7 @@ class GlideLevel extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //controls text configuration
         let controlConfig = {
