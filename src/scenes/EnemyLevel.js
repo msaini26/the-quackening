@@ -36,7 +36,8 @@ class EnemyLevel extends Phaser.Scene {
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
 
         //adding player
-        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
+        this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
+        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
 
         //spawn location = where player starts
         const enemySpawn = map.findObject('Enemies', obj => obj.name === 'Enemy');
