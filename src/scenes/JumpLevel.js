@@ -15,6 +15,7 @@ class JumpLevel extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('jumpLevelJSON', 'jumpLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
+        this.load.image('quack', 'quack_prelim.png');
 
          // load background music
         this.load.audio('background_music', './audio/background.mp3');
@@ -45,7 +46,8 @@ class JumpLevel extends Phaser.Scene {
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
 
         //adding player
-        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
+        this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
+        this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
         
         //creating slime animation
         this.anims.create({
@@ -76,17 +78,6 @@ class JumpLevel extends Phaser.Scene {
         // create sound instance
         this.gameMusic = this.sound.add('background_music', levelMusicConfig);
         this.gameMusic.play(levelMusicConfig); // play music with config settings
-
-
-        // define a render debug so we can see the tilemap's collision bounds
-        // const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // terrainLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
-
-
 
         //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);

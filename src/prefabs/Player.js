@@ -32,7 +32,7 @@
 
 class Player extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, quackRadius) {
 
         // console.log("from Player.js: constructing...");
 
@@ -43,6 +43,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.parentScene.add.existing(this);            // first add to scene
             this.parentScene.physics.add.existing(this);    // then add to PHYSICS scene
+
+        // save quack
+            this.quackRadius = quackRadius;
 
         // physics variables
 
@@ -83,6 +86,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.parentScene.scene.restart();           // restarts if hit
 
         }
+
+
+        // quack follows
+
+        this.quackRadius.x = this.x
+        this.quackRadius.y = this.y
 
         
         // transition to next scene
