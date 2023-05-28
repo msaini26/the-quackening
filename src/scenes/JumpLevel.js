@@ -12,6 +12,7 @@ class JumpLevel extends Phaser.Scene {
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
         this.load.image('greenImage', './Background/Green.png');
+        this.load.image('coin', 'coin.png');
 
         this.load.tilemapTiledJSON('jumpLevelJSON', 'jumpLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
@@ -127,12 +128,50 @@ class JumpLevel extends Phaser.Scene {
         // clock
         this.clock = new Phaser.Time.Clock(this);
 
+        this.coins = this.add.group();
+
+
+        // create a random amount of coins
+        let num_coins = Phaser.Math.Between(1, 50);
+
+        let line = this.add.line(Phaser.Math.Between(100, 300), Phaser.Math.Between(0, 300),100,100,500,100,0xff0000);
+
+        // create coins group
+        for (let i = 0; i < num_coins; i++) {
+            this.coin = this.physics.add.sprite(line.x * Phaser.Math.Between(1, 3), line.y + 100, 'coin'); // create coin
+            this.coin.body.immovable = true; // don't move coin
+            this.coin.body.allowGravity = false; // don't fall coin
+            this.coins.add(this.coin);
+        }
+        Phaser.Actions.PlaceOnLine(this.coins, line);
+        line.alpha = 0; // hide coin line
+
+        // collider when player hits coin
+        this.physics.add.collider(this.p1, this.coins);
+
+        // init player score
+        this.p1Score = 0;
+
     }
 
     update() {
         
         this.p1.update();
         //console.log("from JumpLevel: from update(): time elapsed:", this.time.now);
+
+        // check if player hits coin
+        this.hitCoinDown = this.p1.body.touching.down;
+        this.hitCoinUp = this.p1.body.touching.up;
+        this.hitCoinLeft = this.p1.body.touching.left;
+        this.hitCoinRight = this.p1.body.touching.right;
+
+        // player collided with a coin
+        if (this.hitCoinDown || this.hitCoinUp || this.hitCoinLeft || this.hitCoinRight) {
+            this.p1Score += 1;
+            console.log("coin is destroyed");
+            // TODO: remove coin when destroyed
+
+        }
     
     }
 
