@@ -113,6 +113,7 @@ class EnemyLevel extends Phaser.Scene {
 
         //creating control instructions
         this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+        this.add.text(10, 40, "Jump to destroy enemy", controlConfig);
 
         this.mapWidth = map.widthInPixels;
 
@@ -135,7 +136,7 @@ class EnemyLevel extends Phaser.Scene {
         // check if player jumped on top of enemy
         if (this.p1.onEnemy) {
             this.enemy.destroy(); // destroy enemy
-            this.add.text(100, 200, "You eliminated the enemy!"); // temp eliminate enemy text
+            // this.add.text(100, 200, "You eliminated the enemy!"); // temp eliminate enemy text
         }
 
         // player is destroyed by enemy
