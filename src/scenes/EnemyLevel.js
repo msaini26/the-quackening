@@ -8,7 +8,7 @@ class EnemyLevel extends Phaser.Scene {
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
         this.load.image('brownImage', './Background/Brown.png');
-        this.load.image('ghost', './Terrain/Terrain.png');
+        this.load.atlas('ghost', 'yellow.png', 'yellow.json');
 
         this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
@@ -141,7 +141,7 @@ class EnemyLevel extends Phaser.Scene {
         // player is destroyed by enemy
         if (this.p1.hitEnemyLeft || this.p1.hitEnemyRight || this.p1.hitEnemyUnder) {
             this.p1.destroy(); // remove player
-            this.scene.pause("enemyLevelScene");
+            this.scene.restart("enemyLevelScene");
         }
     
     }
