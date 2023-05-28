@@ -8,7 +8,7 @@ class EnemyLevel extends Phaser.Scene {
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
         this.load.image('brownImage', './Background/Brown.png');
-        this.load.image('ghost', 'enemy.png');
+        this.load.image('ghost', './Terrain/Terrain.png');
 
         this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
@@ -39,6 +39,7 @@ class EnemyLevel extends Phaser.Scene {
         this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
         this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
 
+
         //spawn location = where player starts
         const enemySpawn = map.findObject('Enemies', obj => obj.name === 'Enemy');
         console.log('enemy x is ' + enemySpawn.x);
@@ -46,6 +47,8 @@ class EnemyLevel extends Phaser.Scene {
 
         // this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost'); 
         this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost').setScale(0.5); 
+
+
         
         //creating slime animation
         this.anims.create({
@@ -64,7 +67,11 @@ class EnemyLevel extends Phaser.Scene {
         //setting collision
         this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
 
-        this.enemy.body.setCollideWorldBounds(true);
+        this.enemy.body.setCollideWorldBounds(true); // so enemy can't exit screen/bounds
+
+        // add physics collider between player and enemy
+        this.physics.add.collider(this.p1, this.enemy);
+
 
 //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
@@ -116,6 +123,26 @@ class EnemyLevel extends Phaser.Scene {
     update() {
         
         this.p1.update();
+
+        // player jumped on top on enemy
+        this.p1.onEnemy = this.p1.body.touching.down; 
+        
+        // player collided with enemy on left, right, or under
+        this.p1.hitEnemyLeft = this.p1.body.touching.left;
+        this.p1.hitEnemyRight = this.p1.body.touching.right; 
+        this.p1.hitEnemyUnder = this.p1.body.touching.up;
+
+        // check if player jumped on top of enemy
+        if (this.p1.onEnemy) {
+            this.enemy.destroy(); // destroy enemy
+            this.add.text(100, 200, "You eliminated the enemy!"); // temp eliminate enemy text
+        }
+
+        // player is destroyed by enemy
+        if (this.p1.hitEnemyLeft || this.p1.hitEnemyRight || this.p1.hitEnemyUnder) {
+            this.p1.destroy(); // remove player
+            this.scene.pause("enemyLevelScene");
+        }
     
     }
 
