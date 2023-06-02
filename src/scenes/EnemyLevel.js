@@ -8,7 +8,8 @@ class EnemyLevel extends Phaser.Scene {
 
         this.load.image('terrainImage', './Terrain/Terrain.png');
         this.load.image('brownImage', './Background/Brown.png');
-        this.load.atlas('ghost', 'yellow.png', 'yellow.json');
+        // this.load.atlas('ghost', 'yellow.png', 'yellow.json');
+        this.load.image('ghost', 'enemy.png');
 
         this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
@@ -46,7 +47,7 @@ class EnemyLevel extends Phaser.Scene {
         console.log('enemy y is ' + enemySpawn.y);
 
         // this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost'); 
-        this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost').setScale(0.5); 
+        this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost').setScale(1); 
 
 
         
