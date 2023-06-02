@@ -130,24 +130,34 @@ class JumpLevel extends Phaser.Scene {
 
         this.coins = this.add.group();
 
-
         // create a random amount of coins
         let num_coins = Phaser.Math.Between(1, 50);
 
-        let line = this.add.line(Phaser.Math.Between(100, 300), Phaser.Math.Between(0, 300),100,100,500,100,0xff0000);
+        let line = this.add.line(200, 150,100,100,500,100,0xff0000);
 
         // create coins group
-        for (let i = 0; i < num_coins; i++) {
-            this.coin = this.physics.add.sprite(line.x * Phaser.Math.Between(1, 3), line.y + 100, 'coin'); // create coin
-            this.coin.body.immovable = true; // don't move coin
-            this.coin.body.allowGravity = false; // don't fall coin
-            this.coins.add(this.coin);
-        }
+        this.coin_one = this.physics.add.sprite(line.x, line.y + 100, 'coin'); // create coin
+        this.coin_one.body.immovable = true; // don't move coin
+        this.coin_one.body.allowGravity = false; // don't fall coin
+        this.coins.add(this.coin_one);
+
+        this.coin_two = this.physics.add.sprite(line.x + 100, line.y + 100, 'coin'); // create coin
+        this.coin_two.body.immovable = true; // don't move coin
+        this.coin_two.body.allowGravity = false; // don't fall coin
+        this.coins.add(this.coin_two);
+        
+        this.coin_three = this.physics.add.sprite(line.x + 200, line.y + 100, 'coin'); // create coin
+        this.coin_three.body.immovable = true; // don't move coin
+        this.coin_three.body.allowGravity = false; // don't fall coin
+        this.coins.add(this.coin_three);
+        
         Phaser.Actions.PlaceOnLine(this.coins, line);
         line.alpha = 0; // hide coin line
 
         // collider when player hits coin
         this.physics.add.collider(this.p1, this.coins);
+
+        
 
         // init player score
         this.p1Score = 0;
