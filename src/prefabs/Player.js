@@ -51,6 +51,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.parentScene.add.existing(this);            // first add to scene
             this.parentScene.physics.add.existing(this);    // then add to PHYSICS scene
 
+            this.body.onOverlap = true;
+
         // save quack
             this.quackRadius = quackRadius;
 
@@ -78,6 +80,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.glidable = false;      // simple boolean for whether or not glide available
             this.grounded = false;
+            this.gliding = false;
 
             this.quackCooldown = 3000;
             this.quackTime = 1000;
@@ -204,9 +207,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             // console.log("from Player.js: from update(): should be gliding...");
 
+            this.gliding = true;
+
             this.body.setVelocityY(this.GLIDE_VELOCITY);    // ..constant descent
             this.body.setDragX(this.AIR_DRAG);
         
+        } else {
+
+            this.gliding = false;
+
         }
 
     }

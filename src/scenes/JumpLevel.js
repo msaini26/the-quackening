@@ -1,6 +1,8 @@
 // notes
 // each template, update lines that start with "//////////"
 // update as needed
+//
+// FIGURE OUT OVERLAP
 
 class JumpLevel extends Phaser.Scene {
     constructor() {
@@ -14,6 +16,8 @@ class JumpLevel extends Phaser.Scene {
         this.load.image('greenImage', './Background/Green.png');
         this.load.image('coin', 'coin.png');
 
+        this.load.image('updraft', 'updraft.png');
+
         this.load.tilemapTiledJSON('jumpLevelJSON', 'jumpLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
         this.load.image('quack', 'quack_prelim.png');
@@ -23,6 +27,7 @@ class JumpLevel extends Phaser.Scene {
     }
 
     create() {
+
         this.physics.world.gravity.y = 3000;
 
         //creating tilemap
@@ -157,6 +162,20 @@ class JumpLevel extends Phaser.Scene {
         // collider when player hits coin
         this.physics.add.collider(this.p1, this.coins);
 
+        // fernie's things
+        /*this.updraft = new Updraft(this, this.p1.x + 800, this.p1.y - 200, 'updraft');
+        this.updraft.scale = 4.0
+        this.physics.add.overlap(this.p1, this.updraft);
+        this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>
+        {
+            console.log("overlapped");
+
+            if (gameObject1.gliding) {
+                gameObject1.y -= 15;
+            }
+
+        })*/
+
         
 
         // init player score
@@ -170,7 +189,7 @@ class JumpLevel extends Phaser.Scene {
         //console.log("from JumpLevel: from update(): time elapsed:", this.time.now);
 
         // check if player hits coin
-        this.hitCoinDown = this.p1.body.touching.down;
+        /*this.hitCoinDown = this.p1.body.touching.down;
         this.hitCoinUp = this.p1.body.touching.up;
         this.hitCoinLeft = this.p1.body.touching.left;
         this.hitCoinRight = this.p1.body.touching.right;
@@ -181,7 +200,7 @@ class JumpLevel extends Phaser.Scene {
             console.log("coin is destroyed");
             // TODO: remove coin when destroyed
 
-        }
+        }*/
     
     }
 
