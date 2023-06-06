@@ -1,17 +1,6 @@
-// Notes and Questions /////////
-//
-// Fern update:
-//  - instant of player object
-//  - updated glide tutorial
-//  - now forces player to use glide
-//  - death by falling now possible
-//  - updated level (expanded tutorial)
-//
-////////////////////////////////
-
-class GlideLevel extends Phaser.Scene {
+class UpdraftLevel extends Phaser.Scene {
     constructor() {
-        super("glideLevelScene");
+        super("updraftLevelScene");
     }
 
     preload() {
@@ -20,16 +9,17 @@ class GlideLevel extends Phaser.Scene {
         this.load.image('terrainImage', './Terrain/Terrain.png');
         this.load.image('pinkImage', './Background/Pink.png');
 
-        this.load.tilemapTiledJSON('glideLevelJSON', 'glideLevel.json');
+        this.load.image('updraft', 'updraft.png');
+
+        this.load.tilemapTiledJSON('updraftJSON', 'updraftLevel.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
-        this.load.image('quack', 'quack_prelim.png');
     }
 
     create() {
         this.physics.world.gravity.y = 3000;
 
         //creating tilemap
-        const map = this.add.tilemap('glideLevelJSON');
+        const map = this.add.tilemap('updraftJSON');
 
         //adding tileset images
         const terrainTileSet = map.addTilesetImage('Terrain', 'terrainImage');
@@ -45,10 +35,27 @@ class GlideLevel extends Phaser.Scene {
 
         //spawn location = where player starts
         const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
+        const updraftSpawn = map.findObject('ObstacleSpawn', obj => obj.name === 'Updraft');
 
         //adding player
         this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1").setScale(0.35); 
-        
+
+        // updraft
+
+        this.updraft = new Updraft(this, updraftSpawn.x, updraftSpawn.y, 'updraft');
+        this.updraft.scale = 4.0
+        this.updraft.y -= this.updraft.height * 3;
+        this.physics.add.overlap(this.p1, this.updraft);
+        this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>
+        {
+            console.log("overlapped");
+
+            if (gameObject1.gliding) {
+                gameObject1.y -= gameObject2.speed;
+            }
+
+        })
+
         //creating slime animation
         this.anims.create({
             key: 'walk',
@@ -65,6 +72,7 @@ class GlideLevel extends Phaser.Scene {
 
         //setting collision
         this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
+
 
 //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
@@ -90,7 +98,6 @@ class GlideLevel extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //controls text configuration
         let controlConfig = {
@@ -105,11 +112,12 @@ class GlideLevel extends Phaser.Scene {
         }
 
         //creating control instructions
-        this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+        //this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+        //this.add.text(10, 40, "Jump to destroy enemy", controlConfig);
 
         this.mapWidth = map.widthInPixels;
 
-        this.nextScene = 'enemyLevelScene';
+        this.nextScene = 'jumpLevelScene';
 
     }
 

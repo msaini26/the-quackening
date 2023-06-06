@@ -39,7 +39,7 @@
 
 class Player extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene, x, y, texture, frame, quackRadius) {
+    constructor(scene, x, y, texture, frame) {
 
         // console.log("from Player.js: constructing...");
 
@@ -54,7 +54,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.onOverlap = true;
 
         // save quack
-            this.quackRadius = quackRadius;
+            // this.quackRadius = quackRadius;
 
         // physics variables
 
@@ -82,13 +82,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.grounded = false;
             this.gliding = false;
 
-            this.quackCooldown = 3000;
+            /*this.quackCooldown = 3000;
             this.quackTime = 1000;
             this.quackAvailable = true;
-            this.quackRadius.alpha = 0;
 
             this.timeNow = this.parentScene.time.now;
-            this.timeSince = this.parentScene.time.now;
+            this.timeSince = this.parentScene.time.now;*/
         
         // final check
             // console.log("from Player.js: constructed!");
@@ -106,7 +105,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
 
-        // quack
+        /*// quack
 
             // quack pos
         this.quackRadius.x = this.x
@@ -135,7 +134,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if ((this.timeNow - this.timeSince) >= this.quackCooldown && !this.quackAvailable) {
             this.quackAvailable = true;
             console.log("from Player.js: from update(): quack available!", this.timeSince);
-        }
+        } */
         
         // transition to next scene
 

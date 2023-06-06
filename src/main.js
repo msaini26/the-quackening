@@ -24,7 +24,7 @@ let config = {
         }
     },
 
-    scene: [Menu, JumpLevel, GlideLevel, EnemyLevel, Play], //add menu later
+    scene: [Menu, UpdraftLevel, JumpLevel, GlideLevel, EnemyLevel, Play], //add menu later
 }
 
 let game = new Phaser.Game(config);
