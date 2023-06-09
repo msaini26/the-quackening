@@ -64,7 +64,21 @@ class GlideLevel extends Phaser.Scene {
         this.p1.play('walk');
 
         //setting collision
-        this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
+        // this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
+
+        this.coins = map.createFromObjects("Objects", {
+            name: "coin",
+            key: "coin",
+            // frame: 214
+        });
+
+        this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+
+        this.coinGroup = this.add.group(this.coins);
+
+        this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
+            obj2.destroy(); // remove coin on overlap
+        });
 
 //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);

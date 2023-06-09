@@ -106,43 +106,164 @@
         }, 
         {
          "draworder":"topdown",
-         "id":4,
-         "name":"Spawn",
+         "id":6,
+         "name":"Objects",
          "objects":[
                 {
                  "height":0,
-                 "id":1,
+                 "id":6,
                  "name":"Blob",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":58.9078172265563,
-                 "y":466.486228307594
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":5,
-         "name":"Enemies",
-         "objects":[
+                 "x":58.4504414873772,
+                 "y":466.359905484392
+                }, 
                 {
                  "height":0,
-                 "id":5,
+                 "id":7,
                  "name":"Enemy",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":959.915611814346,
-                 "y":381.065400843882
+                 "x":960.079592090536,
+                 "y":381.793309289889
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":8,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":137.677136339709,
+                 "y":353.127741709072
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":9,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":371.051412528514,
+                 "y":539.125285137744
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":10,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":535.992630286015,
+                 "y":465.428145288647
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":11,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":676.368134760484,
+                 "y":402.259168275136
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":12,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":783.404456922267,
+                 "y":404.013862081067
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":13,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":937.817511844183,
+                 "y":270.657132830321
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":14,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":1157.15423758554,
+                 "y":270.657132830321
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":15,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":1257.1717845236,
+                 "y":270.657132830321
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":16,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":1357.18933146166,
+                 "y":274.166520442183
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":17,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":1446.67871556413,
+                 "y":272.411826636252
+                }, 
+                {
+                 "gid":275,
+                 "height":50,
+                 "id":18,
+                 "name":"coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":44,
+                 "x":1532.65871205475,
+                 "y":409.277943498859
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -150,8 +271,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":6,
+ "nextlayerid":7,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",
@@ -187,7 +308,7 @@
                  "id":94,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -196,7 +317,7 @@
                  "id":95,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -205,7 +326,7 @@
                  "id":96,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -214,7 +335,7 @@
                  "id":116,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -223,7 +344,7 @@
                  "id":117,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -232,7 +353,7 @@
                  "id":118,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -241,7 +362,7 @@
                  "id":138,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -250,7 +371,7 @@
                  "id":139,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -259,7 +380,7 @@
                  "id":140,
                  "properties":[
                         {
-                         "name":"Collides",
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }]
@@ -279,6 +400,20 @@
          "tilecount":16,
          "tileheight":16,
          "tilewidth":16,
+         "transparentcolor":"#000000"
+        }, 
+        {
+         "columns":1,
+         "firstgid":275,
+         "image":"coin.png",
+         "imageheight":50,
+         "imagewidth":44,
+         "margin":0,
+         "name":"coin",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":50,
+         "tilewidth":44,
          "transparentcolor":"#000000"
         }],
  "tilewidth":16,

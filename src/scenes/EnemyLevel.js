@@ -30,21 +30,34 @@ class EnemyLevel extends Phaser.Scene {
         const terrainLayer = map.createLayer('Terrain', terrainTileSet, 0, 0);
 
         //enable collision
-        terrainLayer.setCollisionByProperty({Collides: true});
+        terrainLayer.setCollisionByProperty({collides: true});
         // terrainLayer.collide = true;
 
         //spawn location = where player starts
-        const blobSpawn = map.findObject('Spawn', obj => obj.name === 'Blob');
+        const blobSpawn = map.findObject('Objects', obj => obj.name === 'Blob');
 
         //adding player
         // this.quackRadius = this.add.image(blobSpawn.x, blobSpawn.y, 'quack')
         this.p1 = new Player(this, blobSpawn.x, blobSpawn.y, "yellow", "yellow1", this.quackRadius).setScale(0.35); 
 
 
+        this.coins = map.createFromObjects("Objects", {
+            name: "coin",
+            key: "coin",
+            // frame: 214
+        });
+
+        this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+
+        this.coinGroup = this.add.group(this.coins);
+
+        this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
+            obj2.destroy(); // remove coin on overlap
+        });
+
+
         //spawn location = where player starts
-        const enemySpawn = map.findObject('Enemies', obj => obj.name === 'Enemy');
-        console.log('enemy x is ' + enemySpawn.x);
-        console.log('enemy y is ' + enemySpawn.y);
+        const enemySpawn = map.findObject('Objects', obj => obj.name === 'Enemy');
 
         // this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost'); 
         this.enemy = this.physics.add.sprite(enemySpawn.x, enemySpawn.y, 'ghost').setScale(1); 
@@ -66,12 +79,13 @@ class EnemyLevel extends Phaser.Scene {
         this.p1.play('walk');
 
         //setting collision
-        this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
+        // this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
 
         this.enemy.body.setCollideWorldBounds(true); // so enemy can't exit screen/bounds
 
         // add physics collider between player and enemy
-        this.physics.add.collider(this.p1, this.enemy);
+        // this.physics.add.collider(this.p1, this.enemy);
+
 
 
 //cameras
@@ -120,32 +134,30 @@ class EnemyLevel extends Phaser.Scene {
 
         this.nextScene = 'jumpLevelScene';
 
+        this.isDead = false;
+
     }
 
     update() {
         
-        this.p1.update();
+        this.checkEnemy();
 
-        // player jumped on top on enemy
-        this.p1.onEnemy = this.p1.body.touching.down; 
-        
-        // player collided with enemy on left, right, or under
-        this.p1.hitEnemyLeft = this.p1.body.touching.left;
-        this.p1.hitEnemyRight = this.p1.body.touching.right; 
-        this.p1.hitEnemyUnder = this.p1.body.touching.up;
-
-        // check if player jumped on top of enemy
-        if (this.p1.onEnemy) {
-            this.enemy.destroy(); // destroy enemy
-            // this.add.text(100, 200, "You eliminated the enemy!"); // temp eliminate enemy text
-        }
-
-        // player is destroyed by enemy
-        if (this.p1.hitEnemyLeft || this.p1.hitEnemyRight || this.p1.hitEnemyUnder) {
-            this.p1.destroy(); // remove player
-            this.scene.restart("enemyLevelScene");
+        if(!this.isDead){
+            this.p1.update();
         }
     
+    }
+
+    checkEnemy(){
+        this.physics.add.collider(this.p1, this.enemy, (player, enemy) =>{
+            if(this.p1.body.touching.down){
+                enemy.destroy();
+            } else {
+                this.p1.destroy(); // remove player
+                this.scene.restart("enemyLevelScene");
+                this.isDead = true;
+            }
+        });
     }
 
 }

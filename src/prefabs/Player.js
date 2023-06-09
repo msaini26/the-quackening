@@ -82,6 +82,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.grounded = false;
             this.gliding = false;
 
+
             /*this.quackCooldown = 3000;
             this.quackTime = 1000;
             this.quackAvailable = true;
@@ -185,7 +186,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         }
 
-        if (this.body.blocked.down && (Phaser.Input.Keyboard.JustDown(keyUP) || Phaser.Input.Keyboard.JustDown(keyF))) {   // if grounded and jump key pressed...
+        if (this.body.blocked.down && (Phaser.Input.Keyboard.JustDown(keyUP))) {   // if grounded and jump key pressed...
 
             // console.log("from Player.js: from update(): jumping!");
 
@@ -202,7 +203,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         
         }
 
-        if ((keyUP.isDown || keyF.isDown) && this.glidable) {        // if jump held while glidable...
+        if (keyUP.isDown && this.glidable) {        // if jump held while glidable...
 
             // console.log("from Player.js: from update(): should be gliding...");
 
