@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene {
     // create objects and instances in phaser canvas
     create () {
         // display title image
-        this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setScale(1.25).setOrigin(0, 0); // place background tile sprite
+        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.25).setOrigin(0, 0); // place background tile sprite
 
         // set menu configurations
         let menuConfig = {
@@ -59,14 +59,12 @@ class Menu extends Phaser.Scene {
         };
 
         // show menu text
-        var title = this.add.text(game.config.width/30, game.config.height/4 - borderUISize - borderPadding, ' The', titleConfig);
-        var title_2 = this.add.text(game.config.width/30, game.config.height/2.5 - borderUISize - borderPadding, 'Quackening', titleConfig);
+        var title = this.add.text(game.config.width/2, game.config.height/2 - 100, ' The Quackening', titleConfig).setOrigin(0.5);
         title.setShadow(4, 4, '#424130');
-        title_2.setShadow(4, 4, '#424130');
 
         menuConfig.backgroundColor = '#eeecd0';
         menuConfig.color = '#000';
-        var level_mode = this.add.text(game.config.width/3.5, game.config.height/1.5, 'Press ← to continue', subConfig).setOrigin(0.5);
+        var level_mode = this.add.text(game.config.width/2, game.config.height/1.5, 'Press → to continue', subConfig).setOrigin(0.5);
         level_mode.setShadow(4, 4, '#424130');
 
 
@@ -91,7 +89,7 @@ class Menu extends Phaser.Scene {
 
     // updates per frame
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.sound.play('sfx_select'); // play selector sound
             this.scene.start('jumpLevelScene'); // begin first level
             this.music.stop(); // stop music

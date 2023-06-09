@@ -8,7 +8,8 @@ ISSUES: fix glide so when player hits ground, it doesn't bounce back up again.
 
 let config = {
     type: Phaser.AUTO,
-    width: 800,
+    // width: 800,
+    width: 1300,
     height: 600,
     render: {
         pixelArt: true
