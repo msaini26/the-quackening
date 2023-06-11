@@ -77,7 +77,9 @@ class GlideLevel extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
+            score += 1;
             obj2.destroy(); // remove coin on overlap
+            console.log(score);
         });
 
 //cameras
@@ -124,7 +126,6 @@ class GlideLevel extends Phaser.Scene {
         this.mapWidth = map.widthInPixels;
 
         this.nextScene = 'enemyLevelScene';
-
     }
 
     update() {

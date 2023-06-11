@@ -52,7 +52,9 @@ class EnemyLevel extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
+            score += 1;
             obj2.destroy(); // remove coin on overlap
+            console.log(score);
         });
 
 
@@ -114,6 +116,8 @@ class EnemyLevel extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
+        // this.add.rectangle(0, 0, 100, 50, 0xffffff);
+
         //controls text configuration
         let controlConfig = {
             fontFamily: 'Arial',
@@ -132,7 +136,7 @@ class EnemyLevel extends Phaser.Scene {
 
         this.mapWidth = map.widthInPixels;
 
-        this.nextScene = 'jumpLevelScene';
+        this.nextScene = 'gameOverScene';
 
         this.isDead = false;
 
@@ -151,7 +155,9 @@ class EnemyLevel extends Phaser.Scene {
     checkEnemy(){
         this.physics.add.collider(this.p1, this.enemy, (player, enemy) =>{
             if(this.p1.body.touching.down){
+                score += 3;
                 enemy.destroy();
+                console.log(score);
             } else {
                 this.p1.destroy(); // remove player
                 this.scene.restart("enemyLevelScene");
