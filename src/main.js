@@ -25,7 +25,7 @@ let config = {
         }
     },
 
-    scene: [Menu, UpdraftLevel, JumpLevel, GlideLevel, EnemyLevel, Play], //add menu later
+    scene: [Menu, UpdraftLevel, JumpLevel, GlideLevel, EnemyLevel, GameOver], 
 }
 
 let game = new Phaser.Game(config);
@@ -38,6 +38,8 @@ let keyF, keyR, keyLEFT, keyRIGHT, keyUP, keySPACE, keyW, keyA, keyS, keyD;
 // border UI size
 let borderUISize = game.config.height / 15; // set UI height
 let borderPadding = borderUISize / 3; // set padding around game frame
+
+let score = 0;
 
 
 

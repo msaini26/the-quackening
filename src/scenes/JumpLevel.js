@@ -48,13 +48,6 @@ class JumpLevel extends Phaser.Scene {
         terrainLayer.setCollisionByProperty({collides: true});
         // terrainLayer.collide = true;
 
-        // const debugGraphics = this.add.graphics().setAlpha(0.75);
-        // terrainLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,    // color of non-colliding tiles
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),    // color of colliding tiles
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)                // color of colliding face edges
-        // });
-
 
         //spawn location = where player starts
         const blobSpawn = map.findObject('Objects', obj => obj.name === 'Blob');
@@ -76,6 +69,7 @@ class JumpLevel extends Phaser.Scene {
         //play animation
         this.p1.play('walk');
 
+
         //setting collision
         // this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
 
@@ -90,7 +84,9 @@ class JumpLevel extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
+            score += 1;
             obj2.destroy(); // remove coin on overlap
+            console.log(score);
         });
 
         // background music configurations
@@ -135,6 +131,8 @@ class JumpLevel extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+        // this.add.rectangle(0, 0, 300, 170, 0xffffff);
+
         //controls text configuration
         let controlConfig = {
             fontFamily: 'Arial',
@@ -152,75 +150,11 @@ class JumpLevel extends Phaser.Scene {
         this.add.text(10, 40, "⬅️ ➡️ to move", controlConfig);
         // this.add.text(10, 70, "Press ⬆️ and ⬅️ / ➡️ to glide", controlConfig);
 
+
         this.mapWidth = map.widthInPixels;
 
         // clock
         this.clock = new Phaser.Time.Clock(this);
-
-        // init player score
-        this.p1Score = 0;
-
-
-
-
-
-        // create a random amount of coins
-        // let num_coins = Phaser.Math.Between(1, 50);
-
-        // let line = this.add.line(200, 150,100,100,500,100,0xff0000);
-
-        // // create coins group
-        // this.coin_one = this.physics.add.sprite(line.x, line.y + 100, 'coin'); // create coin
-        // this.coin_one.body.immovable = true; // don't move coin
-        // this.coin_one.body.allowGravity = false; // don't fall coin
-
-        // this.coin_two = this.physics.add.sprite(line.x + 150, line.y + 100, 'coin'); // create coin
-        // this.coin_two.body.immovable = true; // don't move coin
-        // this.coin_two.body.allowGravity = false; // don't fall coin
-        
-        // this.coin_three = this.physics.add.sprite(line.x + 300, line.y + 100, 'coin'); // create coin
-        // this.coin_three.body.immovable = true; // don't move coin
-        // this.coin_three.body.allowGravity = false; // don't fall coin
-        
-        // // Phaser.Actions.PlaceOnLine(this.coins, line);
-        // line.alpha = 0; // hide coin line
-
-        // this.p1.body.onOverlap = true;
-        // this.physics.add.overlap(this.p1, this.coin_one); // collision between coin and player
-        // this.physics.add.overlap(this.p1, this.coin_two); // collision between coin and player
-        // this.physics.add.overlap(this.p1, this.coin_three); // collision between coin and player
-
-
-        // this.physics.world.on('overlap', (player, coin_one) => {
-        //     coin_one.destroy();
-        //     this.p1Score += 1;
-        // });
-
-        // this.physics.world.on('overlap', (player, coin_two) => {
-        //     coin_two.destroy();
-        //     this.p1Score += 1;
-        // });
-        // fernie's things
-        /*this.updraft = new Updraft(this, this.p1.x + 800, this.p1.y - 200, 'updraft');
-        this.updraft.scale = 4.0
-        this.physics.add.overlap(this.p1, this.updraft);
-        this.physics.world.on('overlap', (gameObject1, gameObject2, body1, body2) =>
-        {
-            console.log("overlapped");
-
-            if (gameObject1.gliding) {
-                gameObject1.y -= 15;
-            }
-
-        })*/
-
-        
-        // this.physics.world.on('overlap', (player, coin_three) => {
-        //     coin_three.destroy();
-        //     this.p1Score += 1;
-        // });
-
-
     }
 
         
@@ -228,21 +162,6 @@ class JumpLevel extends Phaser.Scene {
     update() {
         
         this.p1.update();
-        //console.log("from JumpLevel: from update(): time elapsed:", this.time.now);
-
-        // check if player hits coin
-        /*this.hitCoinDown = this.p1.body.touching.down;
-        this.hitCoinUp = this.p1.body.touching.up;
-        this.hitCoinLeft = this.p1.body.touching.left;
-        this.hitCoinRight = this.p1.body.touching.right;
-
-        // // player collided with a coin
-        // if (this.hitCoinDown || this.hitCoinUp || this.hitCoinLeft || this.hitCoinRight) {
-        //     this.p1Score += 1;
-        //     console.log("coin is destroyed");
-        //     // TODO: remove coin when destroyed
-
-        }*/
     
     }
 

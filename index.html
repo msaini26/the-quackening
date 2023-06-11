@@ -7,6 +7,8 @@
   <title>The Quackening</title>
   <!-- Import Custom Font -->
   <link rel="preload" as="font" href="assets/fonts/ducko.ttf" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="assets/fonts/Animated.ttf" type="font/ttf" crossorigin="anonymous" />
+  <link rel="preload" as="font" href="assets/fonts/VinegarStroke.ttf" type="font/ttf" crossorigin="anonymous" />
 
   <style>
     body {
@@ -17,6 +19,14 @@
      @font-face {
       font-family: ducko;
       src: url('./assets/fonts/ducko.ttf');
+    }
+    @font-face {
+      font-family: animated;
+      src: url('./assets/fonts/Animated.ttf');
+    }
+    @font-face {
+      font-family: vinegarStroke;
+      src: url('./assets/fonts/VinegarStroke.ttf');
     }
   </style>
 </head>
@@ -30,6 +40,7 @@
   <script src="./src/scenes/EnemyLevel.js"></script>
   <script src="./src/scenes/UpdraftLevel.js"></script>
   <script src="./src/scenes/Play.js"></script>
+  <script src="./src/scenes/GameOver.js"></script>
   <script src="./src/prefabs/Player.js"></script>
   <script src="./src/prefabs/Updraft.js"></script>
   <script src="./src/main.js"></script>

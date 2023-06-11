@@ -23,20 +23,20 @@ class Menu extends Phaser.Scene {
         // display title image
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.25).setOrigin(0, 0); // place background tile sprite
 
-        // set menu configurations
-        let menuConfig = {
-            fontFamily:'ducko', // set font
-            fontStyle: 'bold', // bold font
-            fontSize: '28px', // set font size
-            backgroundColor: '#F3B141', // set score background color
-            color: '#843605', // set text color
-            align: 'center', // align score to the center
-            padding: { // set padding around text
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0 // set max width
-        };
+        // // set menu configurations
+        // let menuConfig = {
+        //     fontFamily:'ducko', // set font
+        //     fontStyle: 'bold', // bold font
+        //     fontSize: '28px', // set font size
+        //     backgroundColor: '#F3B141', // set score background color
+        //     color: '#843605', // set text color
+        //     align: 'center', // align score to the center
+        //     padding: { // set padding around text
+        //         top: 5,
+        //         bottom: 5,
+        //     },
+        //     fixedWidth: 0 // set max width
+        // };
 
         // title font configurations
         let titleConfig = {
@@ -54,16 +54,22 @@ class Menu extends Phaser.Scene {
         // subtitle font configuration
         let subConfig = {
             fontFamily: 'ducko',
-            fontSize: '28px',
+            fontSize: '30px',
             align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+                right: 5,
+                left: 5
+            }
         };
 
         // show menu text
-        var title = this.add.text(game.config.width/2, game.config.height/2 - 100, ' The Quackening', titleConfig).setOrigin(0.5);
+        var title = this.add.text(game.config.width/2, game.config.height/2 - 100, 'The Quackening', titleConfig).setOrigin(0.5);
         title.setShadow(4, 4, '#424130');
 
-        menuConfig.backgroundColor = '#eeecd0';
-        menuConfig.color = '#000';
+        // menuConfig.backgroundColor = '#eeecd0';
+        // menuConfig.color = '#000';
         var level_mode = this.add.text(game.config.width/2, game.config.height/1.5, 'Press → to continue', subConfig).setOrigin(0.5);
         level_mode.setShadow(3, 3, '#424130');
         var name_credits=this.add.text(game.config.width/2, game.config.height/1.25, 'created by\nFernando Alcazar\nMansi Saini\nThanh To\nRebecca Zhao', subConfig).setOrigin(0.5);
