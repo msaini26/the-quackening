@@ -25,6 +25,9 @@ class JumpLevel extends Phaser.Scene {
          // load background music
         this.load.audio('background_music', './audio/background.mp3');
 
+        this.load.audio('squeak', './assets/audio/squeaky.mp3');
+        this.load.audio('collect', './assets/audio/collectcoin.mp3');
+
         this.load.audio('sfx_select', './assets/audio/quack.mp3');
     }
 
@@ -88,6 +91,7 @@ class JumpLevel extends Phaser.Scene {
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             this.currScore += 1;
+            this.sound.play('collect');
             obj2.destroy(); // remove coin on overlap
             // console.log(score);
         });
@@ -95,7 +99,7 @@ class JumpLevel extends Phaser.Scene {
         // background music configurations
         let levelMusicConfig = {
             mute: false,
-            volume: 2.5,
+            volume: 1,
             rate: 1,
             loop: true,
             delay: 0,
@@ -149,8 +153,8 @@ class JumpLevel extends Phaser.Scene {
         }
 
         //creating control instructions
-        this.add.text(10, 10, "⬆️ to jump", controlConfig);
-        this.add.text(10, 40, "⬅️ ➡️ to move", controlConfig);
+        this.add.text(10, 10, "⬆️ or W to jump", controlConfig);
+        this.add.text(10, 40, "⬅️ ➡️ or (A) and (D) to move", controlConfig);
         // this.add.text(10, 70, "Press ⬆️ and ⬅️ / ➡️ to glide", controlConfig);
 
 
@@ -178,7 +182,7 @@ class JumpLevel extends Phaser.Scene {
         }
 
         if(this.p1.isJumping){
-            this.sound.play('sfx_select'); 
+            this.sound.play('squeak'); 
         }
     
     }

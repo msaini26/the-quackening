@@ -16,12 +16,16 @@ class Menu extends Phaser.Scene {
         // load background music
         this.load.audio('menu', './assets/audio/menu.mp3');
 
+        this.load.audio('squeak', './assets/audio/squeaky.mp3');
+        this.load.audio('collect', './assets/audio/collectcoin.mp3');
+        this.load.audio('pop', './assets/audio/pop.mp3');
+
     }
 
     // create objects and instances in phaser canvas
     create () {
         // display title image
-        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.25).setOrigin(0, 0); // place background tile sprite
+        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.75).setOrigin(0, 0); // place background tile sprite
 
         // // set menu configurations
         // let menuConfig = {
@@ -68,32 +72,40 @@ class Menu extends Phaser.Scene {
         var title = this.add.text(game.config.width/2, game.config.height/2 - 100, 'The Quackening', titleConfig).setOrigin(0.5);
         title.setShadow(4, 4, '#424130');
 
+        // this.credits.setShadow(4, 4, '#424130');
+
         // menuConfig.backgroundColor = '#eeecd0';
         // menuConfig.color = '#000';
         var level_mode = this.add.text(game.config.width/2, game.config.height/1.5, 'Press → to continue', subConfig).setOrigin(0.5);
         level_mode.setShadow(3, 3, '#424130');
 
         subConfig.fontFamily = 'vinegarStroke';
+        subConfig.color = '#ad9165';
         var name_credits=this.add.text(game.config.width/2, game.config.height - 50, 'Created By : Fernando Alcazar, Mansi Saini, Thanh To, Rebecca Zhao', subConfig).setOrigin(0.5);
-        name_credits.setShadow(3, 3, '#424130');
+        // name_credits.setShadow(3, 3, '#424130');
 
+        subConfig.color = '#ad9165';
+        this.credits = this.add.text(game.config.width - 350, 30, 'Press (C) for Credits', subConfig);
+        // this.credits.setInteractive();
 
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
          // background music configurations
          let musicConfig = {
             mute: false,
-            volume: 1,
+            volume: 0.5,
             rate: 1,
             loop: true,
             delay: 0,
         }
 
         // create sound instance
-        this.music = this.sound.add('menu', musicConfig);
-        this.music.play(musicConfig); // play music with config settings
+        introMusic = this.sound.add('menu', musicConfig);
+        introMusic.play(musicConfig); // play music with config settings
+
 
     }
 
@@ -102,7 +114,13 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.sound.play('sfx_select'); // play selector sound
             this.scene.start('jumpLevelScene'); // begin first level
-            this.music.stop(); // stop music
+            introMusic.stop(); // stop music
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(keyC)) {
+            this.sound.play('sfx_select'); // play selector sound
+            this.scene.start('creditsScene'); // begin first level
+            // this.music.stop(); // stop music
         }
     }
 }

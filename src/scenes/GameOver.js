@@ -9,7 +9,7 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.25).setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setScale(1.75).setOrigin(0, 0);
 
 
         let titleConfig = {

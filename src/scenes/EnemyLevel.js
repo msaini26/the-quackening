@@ -14,7 +14,9 @@ class EnemyLevel extends Phaser.Scene {
         this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
 
-        this.load.audio('sfx_select', './assets/audio/quack.mp3');
+        this.load.audio('squeak', './assets/audio/squeaky.mp3');
+        this.load.audio('collect', './assets/audio/collectcoin.mp3');
+        this.load.audio('pop', './assets/audio/pop.mp3');
     }
 
     create() {
@@ -55,6 +57,7 @@ class EnemyLevel extends Phaser.Scene {
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             this.currScore += 1;
+            this.sound.play('collect');
             obj2.destroy(); // remove coin on overlap
         });
 
@@ -137,8 +140,7 @@ class EnemyLevel extends Phaser.Scene {
         }
 
         //creating control instructions
-        this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
-        this.add.text(10, 40, "Jump to destroy enemy", controlConfig);
+        this.add.text(10, 10, "Jump to destroy enemy", controlConfig);
 
         this.mapWidth = map.widthInPixels;
 
@@ -166,7 +168,7 @@ class EnemyLevel extends Phaser.Scene {
             }
 
             if(this.p1.isJumping){
-                this.sound.play('sfx_select'); 
+                this.sound.play('squeak');
             }
         }
     
@@ -177,6 +179,7 @@ class EnemyLevel extends Phaser.Scene {
             if(this.p1.body.touching.down){
                 this.currScore += 3;
                 enemy.destroy();
+                this.sound.play('pop');
             } else {
                 this.p1.destroy(); // remove player
                 this.scene.restart("enemyLevelScene");

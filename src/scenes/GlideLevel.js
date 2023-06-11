@@ -24,7 +24,8 @@ class GlideLevel extends Phaser.Scene {
         this.load.atlas("yellow", "yellow.png", "yellow.json");
         this.load.image('quack', 'quack_prelim.png');
 
-        this.load.audio('sfx_select', './assets/audio/quack.mp3');
+        this.load.audio('squeak', './assets/audio/squeaky.mp3');
+        this.load.audio('collect', './assets/audio/collectcoin.mp3');
     }
 
     create() {
@@ -82,6 +83,7 @@ class GlideLevel extends Phaser.Scene {
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
             this.currScore += 1;
+            this.sound.play('collect');
             obj2.destroy(); // remove coin on overlap
         });
 
@@ -127,7 +129,7 @@ class GlideLevel extends Phaser.Scene {
         }
 
         //creating control instructions
-        this.add.text(10, 10, "Press ⬆️ while moving to glide", controlConfig);
+        this.add.text(10, 10, "Press ⬆️ or (W) while moving to glide", controlConfig);
 
         this.mapWidth = map.widthInPixels;
 
@@ -149,7 +151,7 @@ class GlideLevel extends Phaser.Scene {
         }
 
         if(this.p1.isJumping){
-            this.sound.play('sfx_select'); 
+            this.sound.play('squeak');
         }
     
     }

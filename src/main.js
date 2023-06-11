@@ -25,13 +25,13 @@ let config = {
         }
     },
 
-    scene: [Menu, UpdraftLevel, JumpLevel, GlideLevel, EnemyLevel, GameOver], 
+    scene: [Menu, Credits, UpdraftLevel, JumpLevel, GlideLevel, EnemyLevel, GameOver], 
 }
 
 let game = new Phaser.Game(config);
 
 // define the keys
-let keyF, keyR, keyLEFT, keyRIGHT, keyUP, keySPACE, keyW, keyA, keyS, keyD; 
+let keyF, keyR, keyLEFT, keyRIGHT, keyUP, keySPACE, keyW, keyA, keyS, keyD, keyC; 
 
 // let cursors = null;
 
@@ -40,7 +40,7 @@ let borderUISize = game.config.height / 15; // set UI height
 let borderPadding = borderUISize / 3; // set padding around game frame
 
 let score = 0;
-let gameMusic;
+let gameMusic, introMusic;
 
 
 
