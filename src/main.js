@@ -31,7 +31,7 @@ let config = {
 let game = new Phaser.Game(config);
 
 // define the keys
-let keyF, keyR, keyLEFT, keyRIGHT, keyUP, keySPACE; 
+let keyF, keyR, keyLEFT, keyRIGHT, keyUP, keySPACE, keyW, keyA, keyS, keyD; 
 
 // let cursors = null;
 

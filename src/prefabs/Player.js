@@ -168,13 +168,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         // movement
 
-        if (keyLEFT.isDown) {           // moving left
+        if (keyLEFT.isDown||keyA.isDown) {           // moving left
 
             this.body.setAccelerationX(-this.ACCELERATION);
             this.setFlip(true, false);
 
 
-        } else if (keyRIGHT.isDown) {   // moving right
+        } else if (keyRIGHT.isDown||keyD.isDown) {   // moving right
 
             this.body.setAccelerationX(this.ACCELERATION);
             this.resetFlip();
@@ -191,7 +191,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         }
 
-        if (this.body.blocked.down && (Phaser.Input.Keyboard.JustDown(keyUP))) {   // if grounded and jump key pressed...
+        if (this.body.blocked.down && ((Phaser.Input.Keyboard.JustDown(keyUP))||(Phaser.Input.Keyboard.JustDown(keyW)))) {   // if grounded and jump key pressed...
 
             // console.log("from Player.js: from update(): jumping!");
 
@@ -211,7 +211,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         
         }
 
-        if (keyUP.isDown && this.glidable) {        // if jump held while glidable...
+        if ((keyUP.isDown|| keyW.isDown)&& this.glidable) {        // if jump held while glidable...
 
             // console.log("from Player.js: from update(): should be gliding...");
 
