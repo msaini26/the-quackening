@@ -82,6 +82,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.grounded = false;
             this.gliding = false;
 
+            this.restart = false;
+            this.nextScene = false;
+
+            this.isJumping = false;
 
             /*this.quackCooldown = 3000;
             this.quackTime = 1000;
@@ -100,8 +104,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // falling death
         
         if (this.y >= this.parentScene.lowerBound) {    // checks lower bound
-            
-            this.parentScene.scene.restart();           // restarts if hit
+            this.restart = true;
+            // this.parentScene.scene.restart();           // restarts if hit
 
         }
 
@@ -140,7 +144,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // transition to next scene
 
         if (this.x >= this.parentScene.mapWidth - 30){
-            this.parentScene.scene.start(this.parentScene.nextScene);
+            this.nextScene = true;
+            // this.parentScene.scene.start(this.parentScene.nextScene);
         }
 
 
@@ -192,7 +197,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
             this.grounded = false;
             this.body.setVelocityY(this.JUMP_VELOCITY);
+            this.isJumping = true;
 
+        } else {
+            this.isJumping = false;
         }
 
         if (this.body.velocity.y >= 0 && !this.grounded) {            // 0 velocity reached when arching

@@ -13,6 +13,8 @@ class EnemyLevel extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('enemyJSON', 'enemy.json');
         this.load.atlas("yellow", "yellow.png", "yellow.json");
+
+        this.load.audio('sfx_select', './assets/audio/quack.mp3');
     }
 
     create() {
@@ -52,9 +54,8 @@ class EnemyLevel extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
-            score += 1;
+            this.currScore += 1;
             obj2.destroy(); // remove coin on overlap
-            console.log(score);
         });
 
 
@@ -79,6 +80,8 @@ class EnemyLevel extends Phaser.Scene {
 
         //play animation
         this.p1.play('walk');
+
+        this.currScore = score;
 
         //setting collision
         // this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
@@ -148,6 +151,20 @@ class EnemyLevel extends Phaser.Scene {
 
         if(!this.isDead){
             this.p1.update();
+
+            if(this.p1.restart){
+                this.scene.restart();
+                this.currScore = 0;
+            }
+    
+            if(this.p1.nextScene){
+                score = this.currScore;
+                this.scene.start(this.nextScene);
+            }
+
+            if(this.p1.isJumping){
+                this.sound.play('sfx_select'); 
+            }
         }
     
     }
@@ -155,12 +172,12 @@ class EnemyLevel extends Phaser.Scene {
     checkEnemy(){
         this.physics.add.collider(this.p1, this.enemy, (player, enemy) =>{
             if(this.p1.body.touching.down){
-                score += 3;
+                this.currScore += 3;
                 enemy.destroy();
-                console.log(score);
             } else {
                 this.p1.destroy(); // remove player
                 this.scene.restart("enemyLevelScene");
+                this.currScore = 0;
                 this.isDead = true;
             }
         });

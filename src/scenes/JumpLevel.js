@@ -24,6 +24,8 @@ class JumpLevel extends Phaser.Scene {
 
          // load background music
         this.load.audio('background_music', './audio/background.mp3');
+
+        this.load.audio('sfx_select', './assets/audio/quack.mp3');
     }
 
     create() {
@@ -69,6 +71,7 @@ class JumpLevel extends Phaser.Scene {
         //play animation
         this.p1.play('walk');
 
+        this.currScore = 0;
 
         //setting collision
         // this.p1.body.setCollideWorldBounds(true); //so player can't exit screen/bounds
@@ -84,9 +87,9 @@ class JumpLevel extends Phaser.Scene {
         this.coinGroup = this.add.group(this.coins);
 
         this.physics.add.overlap(this.p1, this.coinGroup, (obj1, obj2) => {
-            score += 1;
+            this.currScore += 1;
             obj2.destroy(); // remove coin on overlap
-            console.log(score);
+            // console.log(score);
         });
 
         // background music configurations
@@ -99,8 +102,8 @@ class JumpLevel extends Phaser.Scene {
         }
 
         // create sound instance
-        this.gameMusic = this.sound.add('background_music', levelMusicConfig);
-        this.gameMusic.play(levelMusicConfig); // play music with config settings
+        gameMusic = this.sound.add('background_music', levelMusicConfig);
+        gameMusic.play(levelMusicConfig); // play music with config settings
 
         //cameras
         this.cameras.main.setBounds(0, 0, map.widthInPixels, 600);
@@ -159,6 +162,21 @@ class JumpLevel extends Phaser.Scene {
     update() {
         
         this.p1.update();
+
+        if(this.p1.restart){
+            gameMusic.stop();
+            this.scene.restart();
+            this.currScore = 0;
+        }
+
+        if(this.p1.nextScene){
+            score = this.currScore;
+            this.scene.start(this.nextScene);
+        }
+
+        if(this.p1.isJumping){
+            this.sound.play('sfx_select'); 
+        }
     
     }
 

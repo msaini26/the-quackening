@@ -72,7 +72,9 @@ class Menu extends Phaser.Scene {
         // menuConfig.color = '#000';
         var level_mode = this.add.text(game.config.width/2, game.config.height/1.5, 'Press → to continue', subConfig).setOrigin(0.5);
         level_mode.setShadow(3, 3, '#424130');
-        var name_credits=this.add.text(game.config.width/2, game.config.height/1.25, 'created by\nFernando Alcazar\nMansi Saini\nThanh To\nRebecca Zhao', subConfig).setOrigin(0.5);
+
+        subConfig.fontFamily = 'vinegarStroke';
+        var name_credits=this.add.text(game.config.width/2, game.config.height - 50, 'Created By : Fernando Alcazar, Mansi Saini, Thanh To, Rebecca Zhao', subConfig).setOrigin(0.5);
         name_credits.setShadow(3, 3, '#424130');
 
 

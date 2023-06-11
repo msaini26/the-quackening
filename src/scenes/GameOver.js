@@ -5,6 +5,7 @@ class GameOver extends Phaser.Scene {
 
     preload() {
         this.load.image('background', './assets/Background/title.png'); // sky background image
+        this.load.audio('sfx_select', './assets/audio/quack.mp3');
     }
 
     create() {
@@ -47,9 +48,21 @@ class GameOver extends Phaser.Scene {
         subConfig.color = '#f27516';
         var coins = this.add.text(game.config.width/2 + 65, game.config.height - 200, score, subConfig).setOrigin(0.5);
         // coins.setShadow(4, 4, '#424130');
+
+        subConfig.fontSize = '35px';
+        // subConfig.color = '#53d94e';
+        this.playAgain = this.add.text(game.config.width/2, game.config.height - 100, 'Press (R) to Restart', subConfig).setOrigin(0.5);
+
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
 
     update() {
-
+        if (Phaser.Input.Keyboard.JustDown(keyR)) {
+            gameMusic.stop();
+            this.sound.play('sfx_select'); // play selector sound
+            this.scene.start('jumpLevelScene'); // begin first level
+            score = 0;
+            // this.music.stop(); // stop music
+        }
     }
 }
