@@ -42,5 +42,9 @@ let borderPadding = borderUISize / 3; // set padding around game frame
 let score = 0;
 let gameMusic, introMusic;
 
+// define the game timer (60 seconds)
+game.settings = {
+    gameTimer: 61000
+}
 
 

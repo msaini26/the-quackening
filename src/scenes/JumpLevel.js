@@ -162,25 +162,75 @@ class JumpLevel extends Phaser.Scene {
 
         // clock
         this.clock = new Phaser.Time.Clock(this);
+
+        // TIMER: to see how fast you can make it to the end
+
+        // display score
+        let scoreConfig = {
+            fontFamily:'ducko', // set font
+            fontSize: '28px', // set font size
+            backgroundColor: '#e7c9ff', // set score background color
+            color: '#FFFFFF', // set text color
+            align: 'center', // align score to the center
+            padding: { // set padding around text
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 70 // set max width
+        }
+
+        // 60-second play clock
+        scoreConfig.fixedWidth = 0;
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            // move to gameover scene
+            this.scene.stop();
+            this.scene.start('gameOverScene');
+        }, null, this);
+
+        // display timer
+        let clockConfig = {
+            fontFamily:'chicken-pie', // set font
+            fontSize: '28px', // set font size
+            backgroundColor: '#e7c9ff', // set score background color
+            color: '#FFFFFF', // set text color
+            align: 'center', // align score to the center
+            padding: { // set padding around text
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 50 // set max width
+        };
+  
+        // timer
+        this.timer = this.add.text(10, 80, 60, clockConfig);
+        this.timer.setShadow(2, 2, '#6b74bd');
+        clockConfig.fixedWidth = 0;
     }
 
         
 
     update() {
+
+        // update the timer as the player continues
+        this.timer.text = Math.floor(this.clock.getRemainingSeconds());
         
+        // player updates
         this.p1.update();
 
+        // when player restarts level, restart the scene
         if(this.p1.restart){
             gameMusic.stop();
             this.scene.restart();
             this.currScore = 0;
         }
 
+        // when player makes it to the end, move to next scene
         if(this.p1.nextScene){
             score = this.currScore;
             this.scene.start(this.nextScene);
         }
 
+        // squeak sound when the player jumps
         if(this.p1.isJumping){
             this.sound.play('squeak'); 
         }
