@@ -138,7 +138,7 @@ class GlideLevel extends Phaser.Scene {
 
     update() {
         
-        this.timer.text = Math.floor(this.clock.getRemainingSeconds());
+        // this.timer.text = Math.floor(this.clock.getRemainingSeconds());
         
 
         // update player

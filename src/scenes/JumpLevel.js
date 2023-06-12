@@ -161,7 +161,7 @@ class JumpLevel extends Phaser.Scene {
         this.mapWidth = map.widthInPixels;
 
         // clock
-        this.clock = new Phaser.Time.Clock(this);
+        // this.clock = new Phaser.Time.Clock(this);
 
         // TIMER: to see how fast you can make it to the end
 
@@ -181,30 +181,30 @@ class JumpLevel extends Phaser.Scene {
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            // move to gameover scene
-            this.scene.stop();
-            this.scene.start('gameOverScene');
-        }, null, this);
+        // this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+        //     // move to gameover scene
+        //     this.scene.stop();
+        //     this.scene.start('gameOverScene');
+        // }, null, this);
 
         // display timer
-        let clockConfig = {
-            fontFamily:'chicken-pie', // set font
-            fontSize: '28px', // set font size
-            backgroundColor: '#e7c9ff', // set score background color
-            color: '#FFFFFF', // set text color
-            align: 'center', // align score to the center
-            padding: { // set padding around text
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 50 // set max width
-        };
+        // let clockConfig = {
+        //     fontFamily:'chicken-pie', // set font
+        //     fontSize: '28px', // set font size
+        //     backgroundColor: '#e7c9ff', // set score background color
+        //     color: '#FFFFFF', // set text color
+        //     align: 'center', // align score to the center
+        //     padding: { // set padding around text
+        //         top: 5,
+        //         bottom: 5,
+        //     },
+        //     fixedWidth: 50 // set max width
+        // };
   
         // timer
-        this.timer = this.add.text(10, 80, 60, clockConfig);
-        this.timer.setShadow(2, 2, '#6b74bd');
-        clockConfig.fixedWidth = 0;
+        // this.timer = this.add.text(10, 80, 60, clockConfig);
+        // this.timer.setShadow(2, 2, '#6b74bd');
+        // clockConfig.fixedWidth = 0;
     }
 
         
@@ -212,7 +212,7 @@ class JumpLevel extends Phaser.Scene {
     update() {
 
         // update the timer as the player continues
-        this.timer.text = Math.floor(this.clock.getRemainingSeconds());
+        // this.timer.text = Math.floor(this.clock.getRemainingSeconds());
         
         // player updates
         this.p1.update();
